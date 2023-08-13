@@ -5,5 +5,5 @@ export function Button({ variant, children, onClick }) {
     variant === "filled" && filledStyles
   } ${variant === "outlined" && outlinedStyles}`;
 
-  return <button className={buttonStyles}>{children}</button>;
+  return <button className={buttonStyles} onClick={onClick}>{children}</button>;
 }
