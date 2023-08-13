@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <main>
       <Header appMode="solver" title="Fill in your challenge"/>
-      <div className="space-x-8 flex justify-center">
+      <div className="space-x-8 flex justify-center mt-8">
         <Button variant="filled">Solve</Button>
         <Button variant="outlined">Clear</Button>
       </div>
