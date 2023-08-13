@@ -12,7 +12,7 @@ export function Header({ title, appMode }) {
         </div>
       </div>
 
-      <h1 className="text-4xl mt-6">{title}</h1>
+      <h1 className="text-4xl mt-6 lg:text-center">{title}</h1>
     </header>
   )
 }
