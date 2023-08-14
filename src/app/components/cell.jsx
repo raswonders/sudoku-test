@@ -20,6 +20,6 @@ export default function Cell( { row, col} ) {
     }
 
     return (
-        <input type="text" value={number} className={`w-10 h-10 border border-1 border-slate-400 text-center ${validInput ? "" : "bg-red-400"}`} onChange={(e) => handleChange(e)}></input>
+        <input type="number" value={number} className={`w-10 h-10 border border-1 border-slate-400 text-center ${validInput ? "" : "bg-red-400"}`} onChange={(e) => handleChange(e)}></input>
     )
 }
