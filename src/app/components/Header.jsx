@@ -1,6 +1,6 @@
 export function Header({ title, appMode }) {
   return (
-    <header className="w-full">
+    <header className="w-full flex-grow-0">
       <div className="flex justify-between uppercase">
         <div className="flex flex-col text-xs">
           <span>Sudoku</span>
