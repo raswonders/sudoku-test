@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Cell from './cell'
 
 const board = [...Array(9)]
@@ -8,9 +8,9 @@ const board = [...Array(9)]
 export default function Board() {
   
   const [size, setSize] = useState(9)
-  
+
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row border border-1 border-slate-500 justify-center items-center w-screen h-screen">
       { 
         board.map( (rKey, cIndex) => {
           return (
@@ -19,7 +19,7 @@ export default function Board() {
                   board.map( (cKey, rIndex) => {
                     return (
                       <div className="" key={rIndex + cIndex}>
-                        <Cell key={rIndex} name={ (rIndex + 1 ) * (cIndex + 1) } />
+                        <Cell key={rIndex} row={rIndex} col={cIndex}/>
                       </div>
                     ) 
                   })
