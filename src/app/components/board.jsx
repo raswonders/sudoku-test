@@ -10,7 +10,7 @@ export default function Board() {
   const [size, setSize] = useState(9)
 
   return (
-    <div className="flex flex-row justify-center items-center w-screen h-screen">
+    <div className="flex flex-row justify-center items-center">
       { 
         board.map( (rKey, cIndex) => {
           return (
