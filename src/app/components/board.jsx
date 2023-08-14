@@ -10,7 +10,7 @@ export default function Board() {
   const [size, setSize] = useState(9)
   
   return (
-    <div className="flex flex-row border border-1 border-slate-500">
+    <div className="flex flex-row">
       { 
         board.map( (rKey, cIndex) => {
           return (
