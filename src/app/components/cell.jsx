@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 
 const INP_REGEX = /^(?:[1-9]|)$/;
 
-export default function Cell( { row, col} ) {
+export default function Cell() {
 
     const [number, setNumber] = useState('');
     const [validInput, setValidInput] = useState(true);
