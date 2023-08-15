@@ -30,10 +30,8 @@ export default function Home() {
         }
         return false
       }
-      console.log("solving sudoku. iteration n: " + i );
     }
     setCells(newCells);
-    console.log("sudoku solved \n" + cells);
     return true;
   }
 
