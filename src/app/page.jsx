@@ -20,7 +20,7 @@ export default function Home() {
       if(newCells[i].value === ''){
         for(let guess = 1; guess < 10; guess++){
           newCells[i].value = { ...newCells[i], value: guess.toString()};
-          if(!checkDuplicates(newCells, i)){
+          if(!hasDuplicates(newCells, i)){
             if(solve(newCells)){
               return true;
             }
@@ -35,10 +35,12 @@ export default function Home() {
     return true;
   }
 
-  function checkDuplicates(cells, index) {
+  function hasDuplicates(cells, index) {
     const value = cells[index].value;
     const row = Math.floor(index / 9);
     const col = index % 9;
+
+    if (value === "") return false;
   
     // Check duplicates in the row
     for (let i = 0; i < 9; i++) {
@@ -74,7 +76,7 @@ export default function Home() {
       <div className="w-full h-full max-w-screen-lg flex flex-col justify-between items-center">
         <Header appMode="solver" title="Fill in your challenge" />
         <div className="flex-grow flex flex-col justify-center">
-          <Board cells={cells} setCells={setCells} checkDuplicates={checkDuplicates}/>
+          <Board cells={cells} setCells={setCells} />
           <div className="space-x-8 mt-10 flex justify-center">
             <Button variant="filled" onClick={() => solve(cells)}>Solve</Button>
             <Button variant="outlined" onClick={handleClearAll}>Clear</Button>
