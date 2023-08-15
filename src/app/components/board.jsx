@@ -41,7 +41,7 @@ function checkDuplicates(cells, index){
   for(let r = index % 9; r < index; r++){ // Left side
     indicesToCheck.push(r)
   }
-  for(let r = index + 1; r < index % 9 + 8; r++){ // Right side
+  for(let r = index + 1; r < index % 9 + 9; r++){ // Right side
     indicesToCheck.push(r)
   }
 
