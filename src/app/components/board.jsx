@@ -15,6 +15,7 @@ export default function Board({ cells, setCells }) {
         <Cell
           key={index}
           value={cell.value}
+          isValid={cell.isValid}
           handleChange={(newValue) => handleInputChange(index, newValue)}
         />
       ))}
