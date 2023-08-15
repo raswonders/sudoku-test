@@ -19,7 +19,7 @@ export default function Home() {
     for(let i = 0; i < 81; i++){
       if(newCells[i].value === ''){
         for(let guess = 1; guess < 10; guess++){
-          newCells[i].value = { ...newCells[i], value: guess.toString()};
+          newCells[i] = { ...newCells[i], value: guess.toString()};
           if(!hasDuplicates(newCells, i)){
             if(solve(newCells)){
               return true;
