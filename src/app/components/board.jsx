@@ -2,16 +2,11 @@
 
 import Cell from "./cell";
 
-export default function Board({ cells, setCells, checkDuplicates }) {
+export default function Board({ cells, setCells }) {
   function handleInputChange(index, value) {
     const newCells = [...cells];
     newCells[index] = { ...newCells[index], value };
-
-    if (!checkDuplicates(cells, index)) {
-      newCells[index] = { ...newCells, value: "" };
-    } else {
-      setCells(newCells);
-    }
+    setCells(newCells);
   }
 
   return (
