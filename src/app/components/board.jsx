@@ -3,28 +3,26 @@
 import Cell from "./cell";
 
 export default function Board({ cells, setCells, checkDuplicates }) {
-    
   function handleInputChange(index, value) {
-    const updatedCells = [...cells];
-    updatedCells[index] = value;
-    
-    if(!checkDuplicates(cells, index)){
-      updatedCells[index] = '';
+    const newCells = [...cells];
+    newCells[index] = { ...newCells[index], value };
+
+    if (!checkDuplicates(cells, index)) {
+      newCells[index] = { ...newCells, value: "" };
     } else {
-    setCells(updatedCells);
+      setCells(newCells);
     }
   }
 
   return (
     <div className="board">
-      {cells.map((value, index) => (
+      {cells.map((cell, index) => (
         <Cell
           key={index}
-          value={value}
+          value={cell.value}
           handleChange={(newValue) => handleInputChange(index, newValue)}
         />
       ))}
     </div>
   );
 }
-

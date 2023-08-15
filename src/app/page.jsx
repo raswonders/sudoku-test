@@ -6,10 +6,10 @@ import { Button } from "./components/Button";
 import Board from "./components/board";
 
 export default function Home() {
-  const [cells, setCells] = useState(Array(81).fill(""));
+  const [cells, setCells] = useState(Array(81).fill({ value: "", isValid: true }));
 
   function handleClearAll() {
-    setCells(Array(81).fill(''));
+    setCells(Array(81).fill({ value: "", isValid: true }));
   }
 
   function solve (cells) {
@@ -17,15 +17,15 @@ export default function Home() {
     const newCells = [...cells];
 
     for(let i = 0; i < 81; i++){
-      if(newCells[i] === ''){
+      if(newCells[i].value === ''){
         for(let guess = 1; guess < 10; guess++){
-          newCells[i] = guess.toString();
+          newCells[i].value = { ...newCells[i], value: guess.toString()};
           if(!checkDuplicates(newCells, i)){
             if(solve(newCells)){
               return true;
             }
           } else {
-            newCells[i] = '';
+            newCells[i] = { ...newCells[i], value: ""};
           }
         }
         return false
@@ -36,20 +36,20 @@ export default function Home() {
   }
 
   function checkDuplicates(cells, index) {
-    const value = cells[index];
+    const value = cells[index].value;
     const row = Math.floor(index / 9);
     const col = index % 9;
   
     // Check duplicates in the row
     for (let i = 0; i < 9; i++) {
-      if (i !== col && cells[row * 9 + i] === value) {
+      if (i !== col && cells[row * 9 + i].value === value) {
         return true;
       }
     }
   
     // Check duplicates in the column
     for (let i = 0; i < 9; i++) {
-      if (i !== row && cells[i * 9 + col] === value) {
+      if (i !== row && cells[i * 9 + col].value === value) {
         return true;
       }
     }
@@ -59,7 +59,7 @@ export default function Home() {
     const startCol = Math.floor(col / 3) * 3;
     for (let i = startRow; i < startRow + 3; i++) {
       for (let j = startCol; j < startCol + 3; j++) {
-        if (i !== row && j !== col && cells[i * 9 + j] === value) {
+        if (i !== row && j !== col && cells[i * 9 + j].value === value) {
           return true;
         }
       }
