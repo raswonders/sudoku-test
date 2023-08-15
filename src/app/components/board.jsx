@@ -1,36 +1,25 @@
-'use client'
+"use client";
 
-import { useState } from 'react';
-import Cell from './cell'
+import Cell from "./cell";
 
-const board = [...Array(9)]
-
-export default function Board() {
-  
-  const [size, setSize] = useState(9)
+export default function Board({ cells, setCells }) {
+  function handleInputChange(index, value) {
+    const updatedCells = [...cells];
+    updatedCells[index] = value;
+    setCells(updatedCells);
+  }
 
   return (
-    <div className="flex flex-row justify-center items-center">
-      { 
-        board.map( (rKey, cIndex) => {
-          return (
-            <div key={cIndex}>
-                {
-                  board.map( (cKey, rIndex) => {
-                    return (
-                      <div className="" key={rIndex + cIndex}>
-                        <Cell key={rIndex} row={rIndex} col={cIndex}/>
-                      </div>
-                    ) 
-                  })
-                }
-            </div>
-            )
-          })
-        
-      }
+    <div className="board">
+      {cells.map((value, index) => (
+        <Cell
+          key={index}
+          value={value}
+          handleChange={(newValue) => handleInputChange(index, newValue)}
+        />
+      ))}
     </div>
-  )
+  );
 }
 
 function checkDuplicates(cells, index){

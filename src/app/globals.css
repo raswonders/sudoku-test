@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 * {
   box-sizing: border-box;
 }
@@ -14,11 +13,18 @@ body {
 }
 
 @layer base {
-    input[type='number']::-webkit-outer-spin-button,
-    input[type='number']::-webkit-inner-spin-button,
-    input[type='number'] {
-      -webkit-appearance: none;
-      margin: 0;
-      -moz-appearance: textfield !important;
-    }
- }
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"] {
+    -webkit-appearance: none;
+    margin: 0;
+    -moz-appearance: textfield !important;
+  }
+
+  .board {
+    display: grid;
+    grid-template-columns: repeat(9, min(9vw, 60px));
+    grid-template-rows: repeat(9, min(9vw, 60px));
+    gap: 4px;
+  }
+}
