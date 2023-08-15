@@ -76,7 +76,7 @@ export default function Home() {
       <div className="w-full h-full max-w-screen-lg flex flex-col justify-between items-center">
         <Header appMode="solver" title="Fill in your challenge" />
         <div className="flex-grow flex flex-col justify-center">
-          <Board cells={cells} setCells={setCells} />
+          <Board cells={cells} setCells={setCells} hasDuplicates={hasDuplicates}/>
           <div className="space-x-8 mt-10 flex justify-center">
             <Button variant="filled" onClick={() => solve(cells)}>Solve</Button>
             <Button variant="outlined" onClick={handleClearAll}>Clear</Button>
