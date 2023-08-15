@@ -5,7 +5,7 @@ export default function Cell({ value, isValid, handleChange }) {
     const digit = parseInt(e.key, 10);
     if (!isNaN(digit) && digit >= 1 && digit <= 9) {
       e.preventDefault();
-      handleChange(digit);
+      handleChange(String(digit));
     }
 
     if (bkspPressed || deletePressed) {
