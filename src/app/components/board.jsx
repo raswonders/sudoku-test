@@ -2,29 +2,24 @@
 
 import Cell from "./cell";
 
-export default function Board({ cells, setCells, checkDuplicates }) {
-    
+export default function Board({ cells, setCells, hasDuplicates }) {
   function handleInputChange(index, value) {
-    const updatedCells = [...cells];
-    updatedCells[index] = value;
-    
-    if(!checkDuplicates(cells, index)){
-      updatedCells[index] = '';
-    } else {
-    setCells(updatedCells);
-    }
+    const newCells = [...cells];
+    newCells[index] = { ...newCells[index], value };
+    newCells[index] = { isValid: !hasDuplicates(newCells, index), value };
+    setCells(newCells);
   }
 
   return (
     <div className="board">
-      {cells.map((value, index) => (
+      {cells.map((cell, index) => (
         <Cell
           key={index}
-          value={value}
+          value={cell.value}
+          isValid={cell.isValid}
           handleChange={(newValue) => handleInputChange(index, newValue)}
         />
       ))}
     </div>
   );
 }
-
