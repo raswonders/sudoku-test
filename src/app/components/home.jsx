@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "./Header";
 import { Button } from "./Button";
 import Board from "./board";
@@ -10,6 +10,21 @@ export default function Home() {
   const [cells, setCells] = useState(
     Array(81).fill({ value: "", isValid: true })
   );
+  const [isMobile, setIsMobile] = useState(
+    window.matchMedia("(max-width: 480px)").matches
+  );
+
+  useEffect(() => {
+    const mobileMediaQuery = window.matchMedia("(max-width: 480px)");
+    const handleMediaQueryChange = (event) => {
+      setIsMobile(event.matches);
+    };
+    mobileMediaQuery.addEventListener("change", handleMediaQueryChange);
+
+    return () => {
+      mobileMediaQuery.removeEventListener("change", handleMediaQueryChange);
+    };
+  }, []);
 
   const allValuesSet = cells.every((cell) => cell.value !== "");
   const isValidBoard = cells.every((cell) => cell.isValid);
