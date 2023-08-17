@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Header } from "./header";
-import { Button } from "./button";
+import { Header } from "./Header";
+import { Button } from "./Button";
 import Board from "./board";
 import { hasDuplicates } from "../utils";
 import Overlay from "./overlay";
