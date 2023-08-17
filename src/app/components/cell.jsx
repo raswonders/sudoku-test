@@ -1,4 +1,4 @@
-export default function Cell({ value, isValid, handleChange }) {
+export default function Cell({ value, isValid, handleChange, handleFocus, handleBlur }) {
   function handleKeyDown(e) {
     const bkspPressed = e.key === "Backspace" || e.keyCode === 8;
     const deletePressed = e.key === "Delete" || e.keyCode === 46;
@@ -23,6 +23,8 @@ export default function Cell({ value, isValid, handleChange }) {
       }`}
       onChange={(e) => handleChange(e.target.value)}
       onKeyDown={(e) => handleKeyDown(e)}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
     ></input>
   );
 }

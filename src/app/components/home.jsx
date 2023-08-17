@@ -13,6 +13,7 @@ export default function Home() {
   const [isMobile, setIsMobile] = useState(
     window.matchMedia("(max-width: 480px)").matches
   );
+  const [focusedCell, setFocusedCell] = useState(null);
 
   useEffect(() => {
     const mobileMediaQuery = window.matchMedia("(max-width: 480px)");
@@ -69,6 +70,7 @@ export default function Home() {
             cells={cells}
             setCells={setCells}
             hasDuplicates={hasDuplicates}
+            setFocusedCell={setFocusedCell}
           />
 
           {!isSolution && (
