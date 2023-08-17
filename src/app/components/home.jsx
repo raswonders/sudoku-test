@@ -5,6 +5,7 @@ import { Header } from "./header";
 import { Button } from "./button";
 import Board from "./board";
 import { hasDuplicates } from "../utils";
+import Overlay from "./overlay";
 
 export default function Home() {
   const [cells, setCells] = useState(
@@ -58,52 +59,62 @@ export default function Home() {
   }
 
   return (
-    <main className="px-4 py-6 w-full h-full flex justify-center">
-      <div className="w-full h-full max-w-screen-lg flex flex-col justify-between items-center">
-        {!isSolution && (
-          <Header appMode="solver" title="Fill in your challenge" />
-        )}
-        {isSolution && <Header appMode="solver" title="Solution found!" />}
-
-        <div className="flex-grow flex flex-col justify-center">
-          <Board
-            cells={cells}
-            setCells={setCells}
-            hasDuplicates={hasDuplicates}
-            setFocusedCell={setFocusedCell}
-          />
-
+    <>
+      {isMobile && (
+        <Overlay
+          cells={cells}
+          setCells={setCells}
+          hasDuplicates={hasDuplicates}
+          setFocusedCell={setFocusedCell}
+        />
+      )}
+      <main className="px-4 py-6 w-full h-full flex justify-center">
+        <div className="w-full h-full max-w-screen-lg flex flex-col justify-between items-center">
           {!isSolution && (
-            <div className="space-x-8 mt-10 flex justify-center">
-              <Button
-                variant="filled"
-                onClick={() => solve(cells)}
-                disabled={!isValidBoard}
-              >
-                Solve
-              </Button>
-              <Button variant="outlined" onClick={handleClearAll}>
-                Clear
-              </Button>
-            </div>
+            <Header appMode="solver" title="Fill in your challenge" />
           )}
+          {isSolution && <Header appMode="solver" title="Solution found!" />}
 
-          {isSolution && (
-            <div className="space-x-8 mt-10 flex justify-center">
-              <Button
-                variant="filled"
-                onClick={() => alert("This feature is coming soon")}
-                disabled={!isValidBoard}
-              >
-                Export
-              </Button>
-              <Button variant="outlined" onClick={handleClearAll}>
-                Back
-              </Button>
-            </div>
-          )}
+          <div className="flex-grow flex flex-col justify-center">
+            <Board
+              cells={cells}
+              setCells={setCells}
+              hasDuplicates={hasDuplicates}
+              setFocusedCell={setFocusedCell}
+            />
+
+            {!isSolution && (
+              <div className="space-x-8 mt-10 flex justify-center">
+                <Button
+                  variant="filled"
+                  onClick={() => solve(cells)}
+                  disabled={!isValidBoard}
+                >
+                  Solve
+                </Button>
+                <Button variant="outlined" onClick={handleClearAll}>
+                  Clear
+                </Button>
+              </div>
+            )}
+
+            {isSolution && (
+              <div className="space-x-8 mt-10 flex justify-center">
+                <Button
+                  variant="filled"
+                  onClick={() => alert("This feature is coming soon")}
+                  disabled={!isValidBoard}
+                >
+                  Export
+                </Button>
+                <Button variant="outlined" onClick={handleClearAll}>
+                  Back
+                </Button>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }
