@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Quicksand } from "next/font/google";
 import Cell from "./cell";
 import { getCellsInGrid } from "../utils";
@@ -10,23 +11,48 @@ const quicksand = Quicksand({
 });
 
 export function Grid9x9({ cellValues, setCellValues }) {
+  const [focusedCell, setFocusedCell] = useState({ row: null, col: null });
+
   return (
     <div className={`grid9x9 ${quicksand.className} font-scaling`}>
       {Array(9)
         .fill(null)
         .map((_, i) => (
-          <Grid3x3 key={i} cells={getCellsInGrid(cellValues, i)} />
+          <Grid3x3
+            key={i}
+            gridIndex={i}
+            cells={getCellsInGrid(cellValues, i)}
+            focusedCell={focusedCell}
+            setFocusedCell={setFocusedCell}
+          />
         ))}
     </div>
   );
 }
 
-export function Grid3x3({ cells }) {
+export function Grid3x3({ gridIndex, cells, focusedCell, setFocusedCell }) {
+  const rowInGrid9x9 = Math.floor(gridIndex / 3);
+  const colInGrid9x9 = gridIndex % 3;
+
   return (
     <div className="grid3x3 rounded-lg overflow-hidden umbra-6dp">
-      {cells.map((value, i) => (
-        <Cell key={i} value={value} />
-      ))}
+      {cells.map((value, i) => {
+        const rowInGrid3x3 = Math.floor(i / 3);
+        const colInGrid3x3 = i % 3;
+        const row = rowInGrid9x9 * 3 + rowInGrid3x3;
+        const col = colInGrid9x9 * 3 + colInGrid3x3;
+
+        return (
+          <Cell
+            key={i}
+            value={value}
+            row={row}
+            col={col}
+            focusedCell={focusedCell}
+            setFocusedCell={setFocusedCell}
+          />
+        );
+      })}
     </div>
   );
 }
