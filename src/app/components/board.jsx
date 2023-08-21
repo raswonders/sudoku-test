@@ -22,7 +22,6 @@ export function Grid9x9({ cellValues, setCellValues }) {
 }
 
 export function Grid3x3({ cells }) {
-  console.log(cells);
   return (
     <div className="grid3x3 rounded-lg overflow-hidden umbra-6dp">
       {cells.map((value, i) => (
