@@ -40,4 +40,8 @@ body {
   .umbra-6dp {
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.14);
   }
+
+  .font-scaling {
+    font-size: clamp(0.5rem, 0.5rem + 3vw, 1.8rem);
+  }
 }
