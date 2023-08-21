@@ -5,15 +5,17 @@ export default function Cell({
   focusedCell,
   setFocusedCell,
   handleKeyDown,
+  cellProtection,
 }) {
   const hasFocusOnRowOrCol = row === focusedCell.row || col === focusedCell.col;
+  const isCellProtected = cellProtection[row][col];
 
   return (
     <div
       className={`flex justify-center items-center bg-white ${
         hasFocusOnRowOrCol ? "bg-blue-50" : ""
       } ring-inset focus:outline-none focus:bg-blue-100`}
-      tabIndex={0}
+      tabIndex={isCellProtected ? undefined : 0}
       onFocus={() => setFocusedCell({ row, col })}
       onBlur={() => setFocusedCell({ row: null, col: null })}
       onKeyDown={(e) => handleKeyDown(e, row, col)}

@@ -39,6 +39,7 @@ export function Grid9x9({ cellValues, setCellValues, cellProtection }) {
             focusedCell={focusedCell}
             setFocusedCell={setFocusedCell}
             handleKeyDown={handleKeyDown}
+            cellProtection={cellProtection}
           />
         ))}
     </div>
@@ -51,6 +52,7 @@ export function Grid3x3({
   focusedCell,
   setFocusedCell,
   handleKeyDown = { handleKeyDown },
+  cellProtection = { cellProtection },
 }) {
   const rowInGrid9x9 = Math.floor(gridIndex / 3);
   const colInGrid9x9 = gridIndex % 3;
@@ -72,6 +74,7 @@ export function Grid3x3({
             focusedCell={focusedCell}
             setFocusedCell={setFocusedCell}
             handleKeyDown={handleKeyDown}
+            cellProtection={cellProtection}
           />
         );
       })}
