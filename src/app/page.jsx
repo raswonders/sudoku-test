@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Header } from "./components/Header";
 import { Button } from "./components/Button";
 import { Grid9x9 } from "./components/board";
+import { createCellProtection } from "./utils";
 
 export default function Home() {
   const [cells, setCells] = useState(
@@ -13,6 +14,23 @@ export default function Home() {
   const [cellValues, setCellValues] = useState(
     Array.from({ length: 9 }, () => Array(9).fill(0))
   );
+  const [cellProtection, setCellProtection] = useState(
+    Array.from({ length: 9 }, () => Array(9).fill(false))
+  );
+
+  // initial test case
+  // const [cellValues, setCellValues] = useState([
+  //   [5, 3, 0, 0, 7, 0, 0, 0, 0],
+  //   [6, 0, 0, 1, 9, 5, 0, 0, 0],
+  //   [0, 9, 8, 0, 0, 0, 0, 6, 0],
+  //   [8, 0, 0, 0, 6, 0, 0, 0, 3],
+  //   [4, 0, 0, 8, 0, 3, 0, 0, 1],
+  //   [7, 0, 0, 0, 2, 0, 0, 0, 6],
+  //   [0, 6, 0, 0, 0, 0, 2, 8, 0],
+  //   [0, 0, 0, 4, 1, 9, 0, 0, 5],
+  //   [0, 0, 0, 0, 8, 0, 0, 7, 9],
+  // ]);
+  // const [cellProtection, setCellProtection] = useState(createCellProtection(cellValues));
 
   const allValuesSet = cells.every((cell) => cell.value !== "");
   const isValidBoard = cells.every((cell) => cell.isValid);
@@ -88,7 +106,11 @@ export default function Home() {
         {isSolution && <Header appMode="solver" title="Solution found!" />}
 
         <div className="flex-grow flex flex-col justify-center">
-          <Grid9x9 cellValues={cellValues} setCellValues={setCellValues} />
+          <Grid9x9
+            cellValues={cellValues}
+            setCellValues={setCellValues}
+            cellProtection={cellProtection}
+          />
 
           {!isSolution && (
             <div className="space-x-8 mt-10 flex justify-center">

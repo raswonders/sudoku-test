@@ -24,3 +24,17 @@ export function getCellsInCol(board, col) {
   }
   return result;
 }
+
+export function createCellProtection(board) {
+  const cellProtection = [];
+  
+  for (let i = 0; i < 9; i++) {
+    const row = [];
+    for (let j = 0; j < 9; j++) {
+      row.push(board[i][j] !== 0);
+    }
+    cellProtection.push(row);
+  }
+  
+  return cellProtection;
+}

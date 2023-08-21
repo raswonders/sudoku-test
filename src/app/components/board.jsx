@@ -10,10 +10,12 @@ const quicksand = Quicksand({
   weights: [400, 600],
 });
 
-export function Grid9x9({ cellValues, setCellValues }) {
+export function Grid9x9({ cellValues, setCellValues, cellProtection }) {
   const [focusedCell, setFocusedCell] = useState({ row: null, col: null });
 
   function handleKeyDown(event, row, col) {
+    if (cellProtection[row][col]) return;
+
     const newCellValues = [...cellValues.map((row) => [...row])];
 
     if (event.key >= "1" && event.key <= "9") {
