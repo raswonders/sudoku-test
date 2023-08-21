@@ -14,7 +14,7 @@ export default function Cell({
     <div
       className={`flex justify-center items-center ${
         hasFocusOnRowOrCol ? "bg-blue-50" : "bg-white"
-      } ring-inset focus:outline-none focus:bg-blue-100`}
+      } ring-inset focus:outline-none focus:bg-blue-100 select-none`}
       tabIndex={isCellProtected ? undefined : 0}
       onFocus={() => setFocusedCell({ row, col })}
       onBlur={() => setFocusedCell({ row: null, col: null })}
