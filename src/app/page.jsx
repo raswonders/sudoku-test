@@ -3,11 +3,15 @@
 import { useState } from "react";
 import { Header } from "./components/Header";
 import { Button } from "./components/Button";
-import Board from "./components/board";
+import { Grid9x9 } from "./components/board";
 
 export default function Home() {
   const [cells, setCells] = useState(
     Array(81).fill({ value: "", isValid: true })
+  );
+
+  const [cellValues, setCellValues] = useState(
+    Array.from({ length: 9 }, () => Array(9).fill(0))
   );
 
   const allValuesSet = cells.every((cell) => cell.value !== "");
@@ -84,11 +88,7 @@ export default function Home() {
         {isSolution && <Header appMode="solver" title="Solution found!" />}
 
         <div className="flex-grow flex flex-col justify-center">
-          <Board
-            cells={cells}
-            setCells={setCells}
-            hasDuplicates={hasDuplicates}
-          />
+          <Grid9x9 cellValues={cellValues} setCellValues={setCellValues} />
 
           {!isSolution && (
             <div className="space-x-8 mt-10 flex justify-center">
