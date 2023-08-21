@@ -1,4 +1,11 @@
-export default function Cell({ value, row, col, focusedCell, setFocusedCell }) {
+export default function Cell({
+  value,
+  row,
+  col,
+  focusedCell,
+  setFocusedCell,
+  handleKeyDown,
+}) {
   const hasFocusOnRowOrCol = row === focusedCell.row || col === focusedCell.col;
 
   return (
@@ -9,6 +16,7 @@ export default function Cell({ value, row, col, focusedCell, setFocusedCell }) {
       tabIndex={0}
       onFocus={() => setFocusedCell({ row, col })}
       onBlur={() => setFocusedCell({ row: null, col: null })}
+      onKeyDown={(e) => handleKeyDown(e, row, col)}
     >
       {value > 0 ? value : ""}
     </div>

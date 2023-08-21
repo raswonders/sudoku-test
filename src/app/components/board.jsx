@@ -13,6 +13,18 @@ const quicksand = Quicksand({
 export function Grid9x9({ cellValues, setCellValues }) {
   const [focusedCell, setFocusedCell] = useState({ row: null, col: null });
 
+  function handleKeyDown(event, row, col) {
+    const newCellValues = [...cellValues.map((row) => [...row])];
+
+    if (event.key >= "1" && event.key <= "9") {
+      newCellValues[row][col] = parseInt(event.key, 10);
+    } else if (event.key === "Delete" || event.key === "Backspace") {
+      newCellValues[row][col] = 0;
+    }
+
+    setCellValues(newCellValues);
+  }
+
   return (
     <div className={`grid9x9 ${quicksand.className} font-scaling`}>
       {Array(9)
@@ -24,13 +36,20 @@ export function Grid9x9({ cellValues, setCellValues }) {
             cells={getCellsInGrid(cellValues, i)}
             focusedCell={focusedCell}
             setFocusedCell={setFocusedCell}
+            handleKeyDown={handleKeyDown}
           />
         ))}
     </div>
   );
 }
 
-export function Grid3x3({ gridIndex, cells, focusedCell, setFocusedCell }) {
+export function Grid3x3({
+  gridIndex,
+  cells,
+  focusedCell,
+  setFocusedCell,
+  handleKeyDown = { handleKeyDown },
+}) {
   const rowInGrid9x9 = Math.floor(gridIndex / 3);
   const colInGrid9x9 = gridIndex % 3;
 
@@ -50,6 +69,7 @@ export function Grid3x3({ gridIndex, cells, focusedCell, setFocusedCell }) {
             col={col}
             focusedCell={focusedCell}
             setFocusedCell={setFocusedCell}
+            handleKeyDown={handleKeyDown}
           />
         );
       })}
