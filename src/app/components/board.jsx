@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, forwardRef, useImperativeHandle } from "react";
 import { Quicksand } from "next/font/google";
 import Cell from "./cell";
 import {
@@ -14,84 +14,109 @@ const quicksand = Quicksand({
   weights: [400, 600],
 });
 
-export function Grid9x9({
-  cellValues,
-  setCellValues,
-  cellProtection,
-  cellErrors,
-  setCellErrors,
-  cellSolution,
-}) {
-  const [focusedCell, setFocusedCell] = useState({ row: null, col: null });
-  const isFreeForm = cellSolution[0][0] === 0;
+// export function Grid9x9({
+//   cellValues,
+//   setCellValues,
+//   cellProtection,
+//   cellErrors,
+//   setCellErrors,
 
-  function handleKeyDown(event, row, col) {
-    if (cellProtection[row][col]) return;
+export const Grid9x9 = forwardRef(
+  (
+    {
+      cellValues,
+      setCellValues,
+      cellProtection,
+      cellErrors,
+      setCellErrors,
+      cellSolution,
+    },
+    ref
+  ) => {
+    const [focusedCell, setFocusedCell] = useState({ row: null, col: null });
+    const isFreeForm = cellSolution[0][0] === 0;
 
-    const newCellValues = [...cellValues.map((row) => [...row])];
-    const newCellErrors = [...cellErrors.map((row) => [...row])];
-    const prevValue = newCellValues[row][col];
+    const setInputValue = (value) => {
+      // todo remove
+      console.log("YAY we received", value);
+    };
 
-    if (event.key >= "1" && event.key <= "9") {
-      let value = parseInt(event.key, 10);
+    // Expose the setInputValue function
+    useImperativeHandle(ref, () => ({
+      setInputValue,
+    }));
 
-      // clear errors
-      newCellErrors[row][col] = 0;
-      clearAdjacentErrors(newCellValues, newCellErrors, row, col, prevValue);
+    function handleKeyDown(event, row, col) {
+      if (cellProtection[row][col]) return;
 
-      // add errors
-      if (isFreeForm) {
-        newCellErrors[row][col] = addAdjacentErrors(
-          newCellValues,
-          newCellErrors,
-          row,
-          col,
-          value
-        );
-      } else if (cellSolution[row][col] !== value) {
-        // +1 for bad answer
-        newCellErrors[row][col] = 1;
-        newCellErrors[row][col] += addAdjacentErrors(
-          newCellValues,
-          newCellErrors,
-          row,
-          col,
-          value
-        );
+      const newCellValues = [...cellValues.map((row) => [...row])];
+      const newCellErrors = [...cellErrors.map((row) => [...row])];
+      const prevValue = newCellValues[row][col];
+
+      if (event.key >= "1" && event.key <= "9") {
+        let value = parseInt(event.key, 10);
+
+        // clear errors
+        newCellErrors[row][col] = 0;
+        clearAdjacentErrors(newCellValues, newCellErrors, row, col, prevValue);
+
+        // add errors
+        if (isFreeForm) {
+          newCellErrors[row][col] = addAdjacentErrors(
+            newCellValues,
+            newCellErrors,
+            row,
+            col,
+            value
+          );
+        } else if (cellSolution[row][col] !== value) {
+          // +1 for bad answer
+          newCellErrors[row][col] = 1;
+          newCellErrors[row][col] += addAdjacentErrors(
+            newCellValues,
+            newCellErrors,
+            row,
+            col,
+            value
+          );
+        }
+
+        newCellValues[row][col] = value;
+      } else if (event.key === "Delete" || event.key === "Backspace") {
+        // clear errors
+        newCellErrors[row][col] = 0;
+        clearAdjacentErrors(newCellValues, newCellErrors, row, col, prevValue);
+
+        newCellValues[row][col] = 0;
       }
 
-      newCellValues[row][col] = value;
-    } else if (event.key === "Delete" || event.key === "Backspace") {
-      // clear errors
-      newCellErrors[row][col] = 0;
-      clearAdjacentErrors(newCellValues, newCellErrors, row, col, prevValue);
-
-      newCellValues[row][col] = 0;
+      setCellErrors(newCellErrors);
+      setCellValues(newCellValues);
     }
 
-    setCellErrors(newCellErrors);
-    setCellValues(newCellValues);
+    return (
+      <div ref={ref} className={`grid9x9 ${quicksand.className} font-scaling`}>
+        {Array(9)
+          .fill(null)
+          .map((_, i) => (
+            <Grid3x3
+              key={i}
+              gridIndex={i}
+              cells={getCellsInGrid(cellValues, i)}
+              focusedCell={focusedCell}
+              setFocusedCell={setFocusedCell}
+              handleKeyDown={handleKeyDown}
+              cellProtection={cellProtection}
+              cellErrors={cellErrors}
+            />
+          ))}
+      </div>
+    );
   }
+);
 
-  return (
-    <div className={`grid9x9 ${quicksand.className} font-scaling`}>
-      {Array(9)
-        .fill(null)
-        .map((_, i) => (
-          <Grid3x3
-            key={i}
-            gridIndex={i}
-            cells={getCellsInGrid(cellValues, i)}
-            focusedCell={focusedCell}
-            setFocusedCell={setFocusedCell}
-            handleKeyDown={handleKeyDown}
-            cellProtection={cellProtection}
-            cellErrors={cellErrors}
-          />
-        ))}
-    </div>
-  );
-}
+// Add display name to get rid of ESLINT warning
+Grid9x9.displayName = "Grid9x9";
 
 export function Grid3x3({
   gridIndex,

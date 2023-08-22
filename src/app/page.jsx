@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Header } from "./components/Header";
 import { Button } from "./components/Button";
 import { Grid9x9 } from "./components/board";
@@ -24,6 +24,8 @@ export default function Home() {
   const [cellErrors, setCellErrors] = useState(
     Array.from({ length: 9 }, () => Array(9).fill(0))
   );
+
+  const gridRef = useRef(null);
 
   // for testing purposes only
   // const [cellValues, setCellValues] = useState(test1.cellValues);
@@ -111,8 +113,9 @@ export default function Home() {
             cellSolution={cellSolution}
             cellErrors={cellErrors}
             setCellErrors={setCellErrors}
+            ref={gridRef}
           />
-          <Keypad />
+          <Keypad gridRef={gridRef} />
 
           {!isSolution && (
             <div className="space-x-8 mt-10 flex justify-center">
