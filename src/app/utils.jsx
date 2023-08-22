@@ -117,6 +117,8 @@ export function addAdjacentErrors(board, errorBoard, row, col, value) {
   cellsInError.forEach(([row, col]) => {
     errorBoard[row][col] += 1;
   });
+
+  return cellsInError.length;
 }
 
 export function clearAdjacentErrors(board, errorBoard, row, col, value) {
@@ -124,4 +126,6 @@ export function clearAdjacentErrors(board, errorBoard, row, col, value) {
   cellsInError.forEach(([row, col]) => {
     errorBoard[row][col] += errorBoard[row][col] > 0 ? -1 : 0;
   });
+
+  return cellsInError.length;
 }

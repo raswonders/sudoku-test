@@ -23,6 +23,7 @@ export function Grid9x9({
   cellSolution,
 }) {
   const [focusedCell, setFocusedCell] = useState({ row: null, col: null });
+  const isFreeForm = cellSolution[0][0] === 0;
 
   function handleKeyDown(event, row, col) {
     if (cellProtection[row][col]) return;
@@ -34,21 +35,30 @@ export function Grid9x9({
     if (event.key >= "1" && event.key <= "9") {
       let value = parseInt(event.key, 10);
 
-      // add errors
+      // clear prev errors
       newCellErrors[row][col] += newCellErrors[row][col] > 0 ? -1 : 0;
       if (prevValue) {
         clearAdjacentErrors(newCellValues, newCellErrors, row, col, prevValue);
       }
 
-      if (cellSolution[row][col] !== value) {
+      // add new errors
+      // on freeform board we track exact number of errors for each cell
+      if (isFreeForm) {
+        newCellErrors[row][col] = addAdjacentErrors(
+          newCellValues,
+          newCellErrors,
+          row,
+          col,
+          value
+        );
+      } else if (cellSolution[row][col] !== value) {
         newCellErrors[row][col] += 1;
         addAdjacentErrors(newCellValues, newCellErrors, row, col, value);
       }
 
       newCellValues[row][col] = value;
     } else if (event.key === "Delete" || event.key === "Backspace") {
-
-      // clear errors
+      // add clear prev
       newCellErrors[row][col] += newCellErrors[row][col] > 0 ? -1 : 0;
       if (prevValue) {
         clearAdjacentErrors(newCellValues, newCellErrors, row, col, prevValue);
