@@ -23,11 +23,30 @@ export const Grid9x9 = forwardRef(
       cellErrors,
       setCellErrors,
       cellSolution,
+      cellValuesGiven,
     },
     ref
   ) => {
     const [focusedCell, setFocusedCell] = useState({ row: null, col: null });
     const isFreeForm = cellSolution[0][0] === 0;
+
+    function resetAll() {
+      const userConfirmed = window.confirm(
+        "Are you sure you want to reset all values?"
+      );
+
+      if (!userConfirmed) return;
+
+      let newCellValues;
+      if (isFreeForm) {
+        newCellValues = Array.from({ length: 9 }, () => Array(9).fill(0));
+      } else {
+        newCellValues = [...cellValuesGiven.map((row) => [...row])];
+      }
+      const newCellErrors = Array.from({ length: 9 }, () => Array(9).fill(0));
+      setCellErrors(newCellErrors);
+      setCellValues(newCellValues);
+    }
 
     const setInputValue = (value) => {
       const row = focusedCell.row;
@@ -40,7 +59,6 @@ export const Grid9x9 = forwardRef(
       const prevValue = newCellValues[row][col];
 
       if (String(value) >= "1" && String(value) <= "9") {
-
         // clear errors
         newCellErrors[row][col] = 0;
         clearAdjacentErrors(newCellValues, newCellErrors, row, col, prevValue);
@@ -79,9 +97,10 @@ export const Grid9x9 = forwardRef(
       setCellValues(newCellValues);
     };
 
-    // Expose the setInputValue function
+    // Expose functions to ref
     useImperativeHandle(ref, () => ({
       setInputValue,
+      resetAll,
     }));
 
     function handleKeyDown(event, row, col) {

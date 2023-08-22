@@ -10,14 +10,23 @@ const quicksand = Quicksand({
 export function Keypad({ gridRef }) {
   function handleClick(value) {
     gridRef.current.setInputValue(value);
+    if (value === "Reset") gridRef.current.resetAll();
   }
 
   return (
     <div
       className={`keypad select-none justify-center mt-4 ${quicksand.className} font-semibold text-white text-2xl`}
     >
-      <Key value="S" className="solve-key" />
-      <Key value="R" className="restart-key" />
+      <Key
+        value="S"
+        className="solve-key"
+        handleClick={() => handleClick("Solve")}
+      />
+      <Key
+        value="R"
+        className="restart-key"
+        handleClick={() => handleClick("Reset")}
+      />
       <Key
         value={1}
         className="digit-1-key"
