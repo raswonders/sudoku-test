@@ -37,12 +37,9 @@ export function Grid9x9({
 
       // clear errors
       newCellErrors[row][col] = 0;
-      if (prevValue) {
-        clearAdjacentErrors(newCellValues, newCellErrors, row, col, prevValue);
-      }
+      clearAdjacentErrors(newCellValues, newCellErrors, row, col, prevValue);
 
-      // add new errors
-      // on freeform board we track exact number of errors for each cell
+      // add errors
       if (isFreeForm) {
         newCellErrors[row][col] = addAdjacentErrors(
           newCellValues,
@@ -52,7 +49,7 @@ export function Grid9x9({
           value
         );
       } else if (cellSolution[row][col] !== value) {
-        // +1 error for incorrect answer
+        // +1 for bad answer
         newCellErrors[row][col] = 1;
         newCellErrors[row][col] += addAdjacentErrors(
           newCellValues,
@@ -65,17 +62,13 @@ export function Grid9x9({
 
       newCellValues[row][col] = value;
     } else if (event.key === "Delete" || event.key === "Backspace") {
-      // clear errros 
+      // clear errors
       newCellErrors[row][col] = 0;
-      if (prevValue) {
-        clearAdjacentErrors(newCellValues, newCellErrors, row, col, prevValue);
-      }
+      clearAdjacentErrors(newCellValues, newCellErrors, row, col, prevValue);
 
       newCellValues[row][col] = 0;
     }
 
-    // todo remove this
-    console.log(newCellErrors);
     setCellErrors(newCellErrors);
     setCellValues(newCellValues);
   }

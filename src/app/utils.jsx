@@ -113,6 +113,8 @@ export function getCellsInConflict(board, row, col, value) {
 }
 
 export function addAdjacentErrors(board, errorBoard, row, col, value) {
+  if (!value) return 0;
+
   const cellsInError = getCellsInConflict(board, row, col, value);
   cellsInError.forEach(([row, col]) => {
     errorBoard[row][col] += 1;
@@ -122,6 +124,8 @@ export function addAdjacentErrors(board, errorBoard, row, col, value) {
 }
 
 export function clearAdjacentErrors(board, errorBoard, row, col, value) {
+  if (!value) return 0;
+
   const cellsInError = getCellsInConflict(board, row, col, value);
   cellsInError.forEach(([row, col]) => {
     errorBoard[row][col] += errorBoard[row][col] > 0 ? -1 : 0;
