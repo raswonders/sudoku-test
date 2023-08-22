@@ -30,8 +30,52 @@ export const Grid9x9 = forwardRef(
     const isFreeForm = cellSolution[0][0] === 0;
 
     const setInputValue = (value) => {
+      const row = focusedCell.row;
+      const col = focusedCell.col;
+
+      if (cellProtection[row][col]) return;
+
       const newCellValues = [...cellValues.map((row) => [...row])];
-      newCellValues[focusedCell.row][focusedCell.col] = value;
+      const newCellErrors = [...cellErrors.map((row) => [...row])];
+      const prevValue = newCellValues[row][col];
+
+      if (String(value) >= "1" && String(value) <= "9") {
+
+        // clear errors
+        newCellErrors[row][col] = 0;
+        clearAdjacentErrors(newCellValues, newCellErrors, row, col, prevValue);
+
+        // add errors
+        if (isFreeForm) {
+          newCellErrors[row][col] = addAdjacentErrors(
+            newCellValues,
+            newCellErrors,
+            row,
+            col,
+            value
+          );
+        } else if (cellSolution[row][col] !== value) {
+          // +1 for bad answer
+          newCellErrors[row][col] = 1;
+          newCellErrors[row][col] += addAdjacentErrors(
+            newCellValues,
+            newCellErrors,
+            row,
+            col,
+            value
+          );
+        }
+
+        newCellValues[row][col] = value;
+      } else if (String(value) === "Delete" || String(value) === "Backspace") {
+        // clear errors
+        newCellErrors[row][col] = 0;
+        clearAdjacentErrors(newCellValues, newCellErrors, row, col, prevValue);
+
+        newCellValues[row][col] = 0;
+      }
+
+      setCellErrors(newCellErrors);
       setCellValues(newCellValues);
     };
 
