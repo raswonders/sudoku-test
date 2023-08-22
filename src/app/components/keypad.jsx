@@ -63,7 +63,11 @@ export function Keypad({ gridRef }) {
         className="digit-9-key"
         handleClick={() => handleClick(9)}
       />
-      <Key value="E" className="erase-key" />
+      <Key
+        value="E"
+        className="erase-key"
+        handleClick={() => handleClick("Delete")}
+      />
     </div>
   );
 }
