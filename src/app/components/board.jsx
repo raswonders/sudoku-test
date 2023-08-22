@@ -30,8 +30,9 @@ export const Grid9x9 = forwardRef(
     const isFreeForm = cellSolution[0][0] === 0;
 
     const setInputValue = (value) => {
-      // todo remove
-      console.log("YAY we received", value);
+      const newCellValues = [...cellValues.map((row) => [...row])];
+      newCellValues[focusedCell.row][focusedCell.col] = value;
+      setCellValues(newCellValues);
     };
 
     // Expose the setInputValue function

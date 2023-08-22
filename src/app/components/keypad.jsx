@@ -8,8 +8,7 @@ const quicksand = Quicksand({
 });
 
 export function Keypad({ gridRef }) {
-  function handleClick(event) {
-    const value = event.target.value;
+  function handleClick(value) {
     gridRef.current.setInputValue(value);
   }
 
@@ -22,47 +21,47 @@ export function Keypad({ gridRef }) {
       <Key
         value={1}
         className="digit-1-key"
-        handleClick={(e) => handleClick(e)}
+        handleClick={() => handleClick(1)}
       />
       <Key
         value={2}
         className="digit-2-key"
-        handleClick={(e) => handleClick(e)}
+        handleClick={() => handleClick(2)}
       />
       <Key
         value={3}
         className="digit-3-key"
-        handleClick={(e) => handleClick(e)}
+        handleClick={() => handleClick(3)}
       />
       <Key
         value={4}
         className="digit-4-key"
-        handleClick={(e) => handleClick(e)}
+        handleClick={() => handleClick(4)}
       />
       <Key
         value={5}
         className="digit-5-key"
-        handleClick={(e) => handleClick(e)}
+        handleClick={() => handleClick(5)}
       />
       <Key
         value={6}
         className="digit-6-key"
-        handleClick={(e) => handleClick(e)}
+        handleClick={() => handleClick(6)}
       />
       <Key
         value={7}
         className="digit-7-key"
-        handleClick={(e) => handleClick(e)}
+        handleClick={() => handleClick(7)}
       />
       <Key
         value={8}
         className="digit-8-key"
-        handleClick={(e) => handleClick(e)}
+        handleClick={() => handleClick(8)}
       />
       <Key
         value={9}
         className="digit-9-key"
-        handleClick={(e) => handleClick(e)}
+        handleClick={() => handleClick(9)}
       />
       <Key value="E" className="erase-key" />
     </div>
