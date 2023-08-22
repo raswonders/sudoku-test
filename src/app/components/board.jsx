@@ -14,13 +14,6 @@ const quicksand = Quicksand({
   weights: [400, 600],
 });
 
-// export function Grid9x9({
-//   cellValues,
-//   setCellValues,
-//   cellProtection,
-//   cellErrors,
-//   setCellErrors,
-
 export const Grid9x9 = forwardRef(
   (
     {
