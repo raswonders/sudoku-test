@@ -1,6 +1,8 @@
 "use client";
 
 import { Quicksand } from "next/font/google";
+import resetSvg from "../../../public/reset.svg";
+import backspaceSvg from "../../../public/backspace.svg";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
@@ -23,8 +25,7 @@ export function Keypad({ gridRef }) {
         className="solve-key hidden"
         handleClick={() => handleClick("Solve")}
       />
-      <Key
-        value="R"
+      <ResetKey
         className="restart-key"
         handleClick={() => handleClick("Reset")}
       />
@@ -73,8 +74,7 @@ export function Keypad({ gridRef }) {
         className="digit-9-key"
         handleClick={() => handleClick(9)}
       />
-      <Key
-        value="E"
+      <BkspKey
         className="erase-key"
         handleClick={() => handleClick("Delete")}
       />
@@ -89,6 +89,28 @@ function Key({ value, className, handleClick }) {
       onClick={handleClick}
     >
       {value}
+    </button>
+  );
+}
+
+function ResetKey({ className, handleClick }) {
+  return (
+    <button
+      className={`button ${className} rounded-lg focus:outline-none font-scaling-keypad flex justify-center items-center`}
+      onClick={handleClick}
+    >
+      <img src={resetSvg.src} alt="Reset" />
+    </button>
+  );
+}
+
+function BkspKey({ className, handleClick }) {
+  return (
+    <button
+      className={`button ${className} rounded-lg focus:outline-none font-scaling-keypad flex justify-center items-center`}
+      onClick={handleClick}
+    >
+      <img src={backspaceSvg.src} alt="Erase" />
     </button>
   );
 }

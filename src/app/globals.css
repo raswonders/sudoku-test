@@ -48,12 +48,12 @@ body {
       ". d7 d8 d9 .";
   }
 
-  .keypad *:hover {
+  .keypad > *:hover {
     background-color: rgba(255, 255, 255, 0.2);
     box-shadow: 0px 1px 18px rgba(0, 0, 0, 0.12);
   }
 
-  .keypad *:active {
+  .keypad > *:active {
     background-color: rgba(255, 255, 255, 0.3t );
     box-shadow: 0px 3px 14px 3px rgba(0, 0, 0, 0.12);
   }
