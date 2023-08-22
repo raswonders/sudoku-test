@@ -11,9 +11,16 @@ const quicksand = Quicksand({
 
 export function Keypad({ gridRef }) {
   function handleClick(value) {
+    if (value === "Reset") {
+      gridRef.current.resetAll();
+      return;
+    }
+
+    if (value === "Solve") {
+      alert("Sorry this functionality is coming soon");
+    }
+
     gridRef.current.setInputValue(value);
-    if (value === "Reset") gridRef.current.resetAll();
-    if (value === "Solve") alert("Sorry this functionality is coming soon");
   }
 
   return (
