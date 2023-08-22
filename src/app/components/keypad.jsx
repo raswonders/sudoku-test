@@ -11,6 +11,7 @@ export function Keypad({ gridRef }) {
   function handleClick(value) {
     gridRef.current.setInputValue(value);
     if (value === "Reset") gridRef.current.resetAll();
+    if (value === "Solve") alert("Sorry this functionality is coming soon");
   }
 
   return (
@@ -19,7 +20,7 @@ export function Keypad({ gridRef }) {
     >
       <Key
         value="S"
-        className="solve-key"
+        className="solve-key hidden"
         handleClick={() => handleClick("Solve")}
       />
       <Key
