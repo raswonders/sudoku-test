@@ -3,27 +3,73 @@
 import { useState } from "react";
 import { Quicksand } from "next/font/google";
 import Cell from "./cell";
-import { getCellsInGrid } from "../utils";
+import {
+  getCellsInGrid,
+  addAdjacentErrors,
+  clearAdjacentErrors,
+} from "../utils";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
   weights: [400, 600],
 });
 
-export function Grid9x9({ cellValues, setCellValues, cellProtection }) {
+export function Grid9x9({
+  cellValues,
+  setCellValues,
+  cellProtection,
+  cellErrors,
+  setCellErrors,
+  cellSolution,
+}) {
   const [focusedCell, setFocusedCell] = useState({ row: null, col: null });
+  const isFreeForm = cellSolution[0][0] === 0;
 
   function handleKeyDown(event, row, col) {
     if (cellProtection[row][col]) return;
 
     const newCellValues = [...cellValues.map((row) => [...row])];
+    const newCellErrors = [...cellErrors.map((row) => [...row])];
+    const prevValue = newCellValues[row][col];
 
     if (event.key >= "1" && event.key <= "9") {
-      newCellValues[row][col] = parseInt(event.key, 10);
+      let value = parseInt(event.key, 10);
+
+      // clear errors
+      newCellErrors[row][col] = 0;
+      clearAdjacentErrors(newCellValues, newCellErrors, row, col, prevValue);
+
+      // add errors
+      if (isFreeForm) {
+        newCellErrors[row][col] = addAdjacentErrors(
+          newCellValues,
+          newCellErrors,
+          row,
+          col,
+          value
+        );
+      } else if (cellSolution[row][col] !== value) {
+        // +1 for bad answer
+        newCellErrors[row][col] = 1;
+        newCellErrors[row][col] += addAdjacentErrors(
+          newCellValues,
+          newCellErrors,
+          row,
+          col,
+          value
+        );
+      }
+
+      newCellValues[row][col] = value;
     } else if (event.key === "Delete" || event.key === "Backspace") {
+      // clear errors
+      newCellErrors[row][col] = 0;
+      clearAdjacentErrors(newCellValues, newCellErrors, row, col, prevValue);
+
       newCellValues[row][col] = 0;
     }
 
+    setCellErrors(newCellErrors);
     setCellValues(newCellValues);
   }
 
@@ -40,6 +86,7 @@ export function Grid9x9({ cellValues, setCellValues, cellProtection }) {
             setFocusedCell={setFocusedCell}
             handleKeyDown={handleKeyDown}
             cellProtection={cellProtection}
+            cellErrors={cellErrors}
           />
         ))}
     </div>
@@ -53,6 +100,7 @@ export function Grid3x3({
   setFocusedCell,
   handleKeyDown = { handleKeyDown },
   cellProtection = { cellProtection },
+  cellErrors = { cellErrors },
 }) {
   const rowInGrid9x9 = Math.floor(gridIndex / 3);
   const colInGrid9x9 = gridIndex % 3;
@@ -75,6 +123,7 @@ export function Grid3x3({
             setFocusedCell={setFocusedCell}
             handleKeyDown={handleKeyDown}
             cellProtection={cellProtection}
+            cellErrors={cellErrors}
           />
         );
       })}
