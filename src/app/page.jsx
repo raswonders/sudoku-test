@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Header } from "./components/Header";
 import { Button } from "./components/Button";
 import { Grid9x9 } from "./components/board";
+import { Keypad } from "./components/keypad";
 import { test1 } from "../../data/board-mocks";
 
 export default function Home() {
@@ -111,6 +112,7 @@ export default function Home() {
             cellErrors={cellErrors}
             setCellErrors={setCellErrors}
           />
+          <Keypad />
 
           {!isSolution && (
             <div className="space-x-8 mt-10 flex justify-center">
