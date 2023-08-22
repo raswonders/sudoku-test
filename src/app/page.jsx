@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Header } from "./components/Header";
 import { Button } from "./components/Button";
 import { Grid9x9 } from "./components/board";
+import { Keypad } from "./components/keypad";
 import { test1 } from "../../data/board-mocks";
 
 export default function Home() {
@@ -12,6 +13,9 @@ export default function Home() {
   );
 
   const [cellValues, setCellValues] = useState(
+    Array.from({ length: 9 }, () => Array(9).fill(0))
+  );
+  const [cellValuesGiven, setCellValuesGiven] = useState(
     Array.from({ length: 9 }, () => Array(9).fill(0))
   );
   const [cellSolution, setCellSolution] = useState(
@@ -24,10 +28,13 @@ export default function Home() {
     Array.from({ length: 9 }, () => Array(9).fill(0))
   );
 
+  const gridRef = useRef(null);
+
   // for testing purposes only
   // const [cellValues, setCellValues] = useState(test1.cellValues);
   // const [cellSolution, setCellSolution] = useState(test1.cellSolution);
   // const [cellProtection, setCellProtection] = useState(test1.cellProtection);
+  // const [cellValuesGiven, setCellValuesGiven] = useState(test1.cellValuesGiven);
 
   const allValuesSet = cells.every((cell) => cell.value !== "");
   const isValidBoard = cells.every((cell) => cell.isValid);
@@ -110,7 +117,10 @@ export default function Home() {
             cellSolution={cellSolution}
             cellErrors={cellErrors}
             setCellErrors={setCellErrors}
+            cellValuesGiven={cellValuesGiven}
+            ref={gridRef}
           />
+          <Keypad gridRef={gridRef} />
 
           {!isSolution && (
             <div className="space-x-8 mt-10 flex justify-center">
