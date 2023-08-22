@@ -21,7 +21,6 @@ export default function Cell({
       } ring-inset focus:outline-none focus:bg-blue-100 select-none`}
       tabIndex={isProtected ? undefined : 0}
       onFocus={() => setFocusedCell({ row, col })}
-      onBlur={() => setFocusedCell({ row: null, col: null })}
       onKeyDown={(e) => handleKeyDown(e, row, col)}
     >
       {value > 0 ? value : ""}
