@@ -35,8 +35,8 @@ export function Grid9x9({
     if (event.key >= "1" && event.key <= "9") {
       let value = parseInt(event.key, 10);
 
-      // clear prev errors
-      newCellErrors[row][col] += newCellErrors[row][col] > 0 ? -1 : 0;
+      // clear errors
+      newCellErrors[row][col] = 0;
       if (prevValue) {
         clearAdjacentErrors(newCellValues, newCellErrors, row, col, prevValue);
       }
@@ -52,14 +52,21 @@ export function Grid9x9({
           value
         );
       } else if (cellSolution[row][col] !== value) {
-        newCellErrors[row][col] += 1;
-        addAdjacentErrors(newCellValues, newCellErrors, row, col, value);
+        // +1 error for incorrect answer
+        newCellErrors[row][col] = 1;
+        newCellErrors[row][col] += addAdjacentErrors(
+          newCellValues,
+          newCellErrors,
+          row,
+          col,
+          value
+        );
       }
 
       newCellValues[row][col] = value;
     } else if (event.key === "Delete" || event.key === "Backspace") {
-      // add clear prev
-      newCellErrors[row][col] += newCellErrors[row][col] > 0 ? -1 : 0;
+      // clear errros 
+      newCellErrors[row][col] = 0;
       if (prevValue) {
         clearAdjacentErrors(newCellValues, newCellErrors, row, col, prevValue);
       }
@@ -67,6 +74,8 @@ export function Grid9x9({
       newCellValues[row][col] = 0;
     }
 
+    // todo remove this
+    console.log(newCellErrors);
     setCellErrors(newCellErrors);
     setCellValues(newCellValues);
   }
