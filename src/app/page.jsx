@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Header } from "./components/Header";
 import { Button } from "./components/Button";
 import { Grid9x9 } from "./components/board";
-import { createCellProtection } from "./utils";
+import { test1 } from "../../data/board-mocks";
 
 export default function Home() {
   const [cells, setCells] = useState(
@@ -14,23 +14,20 @@ export default function Home() {
   const [cellValues, setCellValues] = useState(
     Array.from({ length: 9 }, () => Array(9).fill(0))
   );
+  const [cellSolution, setCellSolution] = useState(
+    Array.from({ length: 9 }, () => Array(9).fill(0))
+  );
   const [cellProtection, setCellProtection] = useState(
     Array.from({ length: 9 }, () => Array(9).fill(false))
   );
+  const [cellErrors, setCellErrors] = useState(
+    Array.from({ length: 9 }, () => Array(9).fill(0))
+  );
 
-  // initial test case
-  // const [cellValues, setCellValues] = useState([
-  //   [5, 3, 0, 0, 7, 0, 0, 0, 0],
-  //   [6, 0, 0, 1, 9, 5, 0, 0, 0],
-  //   [0, 9, 8, 0, 0, 0, 0, 6, 0],
-  //   [8, 0, 0, 0, 6, 0, 0, 0, 3],
-  //   [4, 0, 0, 8, 0, 3, 0, 0, 1],
-  //   [7, 0, 0, 0, 2, 0, 0, 0, 6],
-  //   [0, 6, 0, 0, 0, 0, 2, 8, 0],
-  //   [0, 0, 0, 4, 1, 9, 0, 0, 5],
-  //   [0, 0, 0, 0, 8, 0, 0, 7, 9],
-  // ]);
-  // const [cellProtection, setCellProtection] = useState(createCellProtection(cellValues));
+  // for testing purposes only
+  // const [cellValues, setCellValues] = useState(test1.cellValues);
+  // const [cellSolution, setCellSolution] = useState(test1.cellSolution);
+  // const [cellProtection, setCellProtection] = useState(test1.cellProtection);
 
   const allValuesSet = cells.every((cell) => cell.value !== "");
   const isValidBoard = cells.every((cell) => cell.isValid);
@@ -110,6 +107,9 @@ export default function Home() {
             cellValues={cellValues}
             setCellValues={setCellValues}
             cellProtection={cellProtection}
+            cellSolution={cellSolution}
+            cellErrors={cellErrors}
+            setCellErrors={setCellErrors}
           />
 
           {!isSolution && (
