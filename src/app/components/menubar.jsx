@@ -48,19 +48,19 @@ function DifficultyButtons({ handleDifficultyClick }) {
   return (
     <div className="flex justify-center space-x-4 mt-16 absolute">
       <button
-        onClick={() => handleDifficultyClick("Easy")}
+        onClick={() => handleDifficultyClick("easy")}
         className="btn bg-opacity-25 hover:bg-opacity-100 hover:bg-blue-300 bg-blue-500 border-white text-white border-0 btn-primary"
       >
         Easy
       </button>
       <button
-        onClick={() => handleDifficultyClick("Medium")}
+        onClick={() => handleDifficultyClick("medium")}
         className="btn bg-opacity-50 hover:bg-opacity-100 hover:bg-blue-300 bg-blue-500 border-white text-white border-0 btn-primary"
       >
         Medium
       </button>
       <button
-        onClick={() => handleDifficultyClick("Hard")}
+        onClick={() => handleDifficultyClick("hard")}
         className="btn bg-opacity-75 hover:bg-opacity-100 hover:bg-blue-300 bg-blue-500 border-white text-white border-0 btn-primary"
       >
         Hard

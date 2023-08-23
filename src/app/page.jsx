@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Grid9x9 } from "./components/board";
 import { Keypad } from "./components/keypad";
 import { test1 } from "../../data/board-mocks";
 import Menubar from "./components/menubar";
+import { getSudoku, createCellProtection } from "./utils";
 
 export default function Home() {
   const [cellValues, setCellValues] = useState(
@@ -25,6 +26,22 @@ export default function Home() {
   const [game, setGame] = useState("");
 
   const gridRef = useRef(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      if (!game) return;
+      const boards = await getSudoku(game);
+      
+      // initialize new game
+      setCellValuesGiven([...boards.cells.map((row) => [...row])]);
+      setCellValues([...boards.cells.map((row) => [...row])]);
+      setCellSolution([...boards.solution.map((row) => [...row])]);
+      setCellProtection(createCellProtection(boards.cells));
+      setCellErrors(Array.from({ length: 9 }, () => Array(9).fill(0)));
+    }
+
+    fetchData();
+  }, [game]);
 
   // for testing purposes only
   // const [cellValues, setCellValues] = useState(test1.cellValues);
