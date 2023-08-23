@@ -47,7 +47,7 @@ function Menubar({ game, setGame }) {
 
 function DifficultyButtons({ handleDifficultyClick }) {
   return (
-    <div className="flex justify-center space-x-4 mt-16 absolute">
+    <div className="flex justify-center space-x-4 mt-8">
       <button
         onClick={() => handleDifficultyClick("easy")}
         className="btn bg-opacity-25 hover:bg-opacity-100 hover:bg-blue-300 bg-blue-500 border-white text-white border-0 btn-primary"
