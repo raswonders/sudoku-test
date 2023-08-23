@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import { Grid9x9 } from "./components/board";
 import { Keypad } from "./components/keypad";
 import { test1 } from "../../data/board-mocks";
+import Menubar from "./components/menubar";
 
 export default function Home() {
   const [cellValues, setCellValues] = useState(
@@ -21,6 +22,7 @@ export default function Home() {
   const [cellErrors, setCellErrors] = useState(
     Array.from({ length: 9 }, () => Array(9).fill(0))
   );
+  const [game, setGame] = useState("");
 
   const gridRef = useRef(null);
 
@@ -33,6 +35,7 @@ export default function Home() {
   return (
     <main className="px-4 py-6 w-full h-full flex justify-center">
       <div className="w-full h-full max-w-screen-lg flex flex-col justify-between items-center">
+        <Menubar game={game} setGame={setGame} />
         <div className="flex-grow flex flex-col justify-center">
           <Grid9x9
             cellValues={cellValues}
