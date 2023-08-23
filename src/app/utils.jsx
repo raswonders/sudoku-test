@@ -133,3 +133,60 @@ export function clearAdjacentErrors(board, errorBoard, row, col, value) {
 
   return cellsInError.length;
 }
+
+export async function getSudoku(difficulty) {
+  const url = "https://sudoq.p.rapidapi.com/generate/" + difficulty;
+  const options = {
+    method: "GET",
+    headers: {
+      "X-RapidAPI-Key": "5177364e08msh7c9bed52416220fp1b47afjsn9e1086d773a8",
+      "X-RapidAPI-Host": "sudoq.p.rapidapi.com",
+    },
+  };
+
+  try {
+    const response = await fetch(url, options);
+    const data = await response.json();
+    return {
+      cells: stringToMatrix(data.results.puzzle),
+      solution: stringToMatrix(data.results.solution),
+    };
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export function stringToMatrix(str) {
+  const values = str.split(",").map(Number); // Split and convert to numbers
+  const matrix = [];
+
+  for (let i = 0; i < 9; i++) {
+    const row = values.slice(i * 9, (i + 1) * 9);
+    matrix.push(row);
+  }
+
+  return matrix;
+}
+
+// NEED rework before it can work with current board
+//  function solve(cells) {
+//   const newCells = [...cells];
+
+//   for (let i = 0; i < 81; i++) {
+//     if (newCells[i].value === "") {
+//       for (let guess = 1; guess < 10; guess++) {
+//         newCells[i] = { ...newCells[i], value: guess.toString() };
+//         if (!hasDuplicates(newCells, i)) {
+//           if (solve(newCells)) {
+//             return true;
+//           }
+//         } else {
+//           newCells[i] = { ...newCells[i], value: "" };
+//         }
+//       }
+//       return false;
+//     }
+//   }
+//   setCells(newCells);
+//   return true;
+// }

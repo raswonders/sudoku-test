@@ -39,8 +39,8 @@ body {
 
   .keypad {
     display: grid;
-    grid-template-columns: repeat(5, min(9vw, 60px));
-    grid-template-rows: repeat(3, min(9vw, 60px));
+    grid-template-columns: repeat(5, min(15vw, 60px));
+    grid-template-rows: repeat(3, min(15vw, 60px));
     gap: 8px;
     grid-template-areas:
       "r d1 d2 d3 e"
@@ -125,4 +125,8 @@ body {
   .font-scaling-keypad {
     font-size: clamp(0.5rem, 0.5rem + 3vw, 1.6rem);
   }
+}
+
+.gradient {
+  background: linear-gradient(to bottom, rgba(4, 165, 255, 0.62), #00E0FF);
 }
