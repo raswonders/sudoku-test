@@ -31,7 +31,7 @@ export default function Home() {
     async function fetchData() {
       if (!game) return;
       const boards = await getSudoku(game);
-      
+
       // initialize new game
       setCellValuesGiven([...boards.cells.map((row) => [...row])]);
       setCellValues([...boards.cells.map((row) => [...row])]);

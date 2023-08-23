@@ -19,7 +19,8 @@ function Menubar({ game, setGame }) {
 
   return (
     <>
-      <div className="tabs">
+      <h1 className="text-white font-semibold text-lg">Choose your difficulty and start playing</h1>
+      {/* <div className="tabs">
         <a
           className={`tab tab-bordered tab-md ${
             activeTab === "Play" ? "tab-active" : ""
@@ -28,15 +29,15 @@ function Menubar({ game, setGame }) {
         >
           Play 
         </a>
-        {/* <a
+        <a
           className={`tab tab-bordered tab-md ${
             activeTab === "Solution" ? "tab-active" : ""
           }`}
           onClick={() => handleTabClick("Solution")}
         >
           Find Solution
-        </a> */}
-      </div>
+        </a>
+      </div> */}
       {isPlay && (
         <DifficultyButtons handleDifficultyClick={handleDifficultyClick} />
       )}
