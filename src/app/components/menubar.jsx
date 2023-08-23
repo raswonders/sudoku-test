@@ -26,16 +26,16 @@ function Menubar({ game, setGame }) {
           }`}
           onClick={() => handleTabClick("Play")}
         >
-          Play
+          Play 
         </a>
-        <a
+        {/* <a
           className={`tab tab-bordered tab-md ${
             activeTab === "Solution" ? "tab-active" : ""
           }`}
           onClick={() => handleTabClick("Solution")}
         >
           Find Solution
-        </a>
+        </a> */}
       </div>
       {isPlay && (
         <DifficultyButtons handleDifficultyClick={handleDifficultyClick} />
