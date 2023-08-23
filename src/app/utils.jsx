@@ -133,3 +133,26 @@ export function clearAdjacentErrors(board, errorBoard, row, col, value) {
 
   return cellsInError.length;
 }
+
+// NEED rework before it can work with current board
+  //  function solve(cells) {
+  //   const newCells = [...cells];
+
+  //   for (let i = 0; i < 81; i++) {
+  //     if (newCells[i].value === "") {
+  //       for (let guess = 1; guess < 10; guess++) {
+  //         newCells[i] = { ...newCells[i], value: guess.toString() };
+  //         if (!hasDuplicates(newCells, i)) {
+  //           if (solve(newCells)) {
+  //             return true;
+  //           }
+  //         } else {
+  //           newCells[i] = { ...newCells[i], value: "" };
+  //         }
+  //       }
+  //       return false;
+  //     }
+  //   }
+  //   setCells(newCells);
+  //   return true;
+  // }
