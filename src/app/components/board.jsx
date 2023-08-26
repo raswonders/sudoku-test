@@ -52,7 +52,7 @@ export const Grid9x9 = forwardRef(
       const row = focusedCell.row;
       const col = focusedCell.col;
 
-      handleKeyDown(value, row, col);
+      handleInput(value, row, col);
     }
 
     // Expose functions to ref
@@ -61,7 +61,7 @@ export const Grid9x9 = forwardRef(
       resetAll,
     }));
 
-    function handleKeyDown(value, row, col) {
+    function handleInput(value, row, col) {
       if (cellProtection[row][col]) return;
 
       const newCellValues = [...cellValues.map((row) => [...row])];
@@ -120,7 +120,7 @@ export const Grid9x9 = forwardRef(
               cells={getCellsInGrid(cellValues, i)}
               focusedCell={focusedCell}
               setFocusedCell={setFocusedCell}
-              handleKeyDown={handleKeyDown}
+              handleInput={handleInput}
               cellProtection={cellProtection}
               cellErrors={cellErrors}
             />
@@ -138,7 +138,7 @@ export function Grid3x3({
   cells,
   focusedCell,
   setFocusedCell,
-  handleKeyDown = { handleKeyDown },
+  handleInput = { handleInput },
   cellProtection = { cellProtection },
   cellErrors = { cellErrors },
 }) {
@@ -161,7 +161,7 @@ export function Grid3x3({
             col={col}
             focusedCell={focusedCell}
             setFocusedCell={setFocusedCell}
-            handleKeyDown={handleKeyDown}
+            handleInput={handleInput}
             cellProtection={cellProtection}
             cellErrors={cellErrors}
           />

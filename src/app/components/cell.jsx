@@ -4,7 +4,7 @@ export default function Cell({
   col,
   focusedCell,
   setFocusedCell,
-  handleKeyDown,
+  handleInput,
   cellProtection,
   cellErrors,
 }) {
@@ -28,7 +28,7 @@ export default function Cell({
       } ring-inset focus:outline-none select-none`}
       tabIndex={isProtected ? undefined : 0}
       onFocus={() => setFocusedCell({ row, col })}
-      onKeyDown={(e) => handleKeyDown(e.key, row, col)}
+      onKeyDown={(e) => handleInput(e.key, row, col)}
     >
       {value > 0 ? value : ""}
     </div>
