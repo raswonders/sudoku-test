@@ -14,6 +14,8 @@ const quicksand = Quicksand({
   weights: [400, 600],
 });
 
+const nonSolutionIsMistake = false;
+
 export const Grid9x9 = forwardRef(
   (
     {
@@ -76,7 +78,7 @@ export const Grid9x9 = forwardRef(
         clearAdjacentErrors(newCellValues, newCellErrors, row, col, prevValue);
 
         // add errors
-        if (isFreeForm) {
+        if (isFreeForm || !nonSolutionIsMistake) {
           newCellErrors[row][col] = addAdjacentErrors(
             newCellValues,
             newCellErrors,
