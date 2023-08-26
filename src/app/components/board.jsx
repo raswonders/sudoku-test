@@ -59,6 +59,8 @@ export const Grid9x9 = forwardRef(
       const prevValue = newCellValues[row][col];
 
       if (value >= "1" && value <= "9") {
+        let int = parseInt(value, 10);
+
         // clear errors
         newCellErrors[row][col] = 0;
         clearAdjacentErrors(newCellValues, newCellErrors, row, col, prevValue);
@@ -70,9 +72,9 @@ export const Grid9x9 = forwardRef(
             newCellErrors,
             row,
             col,
-            value
+            int
           );
-        } else if (cellSolution[row][col] !== value) {
+        } else if (cellSolution[row][col] !== int) {
           // +1 for bad answer
           newCellErrors[row][col] = 1;
           newCellErrors[row][col] += addAdjacentErrors(
@@ -80,11 +82,11 @@ export const Grid9x9 = forwardRef(
             newCellErrors,
             row,
             col,
-            value
+            int
           );
         }
 
-        newCellValues[row][col] = value;
+        newCellValues[row][col] = int;
       } else if (value === "Delete" || value === "Backspace") {
         // clear errors
         newCellErrors[row][col] = 0;
