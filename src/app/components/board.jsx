@@ -58,7 +58,7 @@ export const Grid9x9 = forwardRef(
       const newCellErrors = [...cellErrors.map((row) => [...row])];
       const prevValue = newCellValues[row][col];
 
-      if (String(value) >= "1" && String(value) <= "9") {
+      if (value >= "1" && value <= "9") {
         // clear errors
         newCellErrors[row][col] = 0;
         clearAdjacentErrors(newCellValues, newCellErrors, row, col, prevValue);
@@ -85,7 +85,7 @@ export const Grid9x9 = forwardRef(
         }
 
         newCellValues[row][col] = value;
-      } else if (String(value) === "Delete" || String(value) === "Backspace") {
+      } else if (value === "Delete" || value === "Backspace") {
         // clear errors
         newCellErrors[row][col] = 0;
         clearAdjacentErrors(newCellValues, newCellErrors, row, col, prevValue);

@@ -39,47 +39,47 @@ export function Keypad({ gridRef }) {
       <Key
         value={1}
         className="digit-1-key"
-        handleClick={() => handleClick(1)}
+        handleClick={() => handleClick("1")}
       />
       <Key
         value={2}
         className="digit-2-key"
-        handleClick={() => handleClick(2)}
+        handleClick={() => handleClick("2")}
       />
       <Key
         value={3}
         className="digit-3-key"
-        handleClick={() => handleClick(3)}
+        handleClick={() => handleClick("3")}
       />
       <Key
         value={4}
         className="digit-4-key"
-        handleClick={() => handleClick(4)}
+        handleClick={() => handleClick("4")}
       />
       <Key
         value={5}
         className="digit-5-key"
-        handleClick={() => handleClick(5)}
+        handleClick={() => handleClick("5")}
       />
       <Key
         value={6}
         className="digit-6-key"
-        handleClick={() => handleClick(6)}
+        handleClick={() => handleClick("6")}
       />
       <Key
         value={7}
         className="digit-7-key"
-        handleClick={() => handleClick(7)}
+        handleClick={() => handleClick("7")}
       />
       <Key
         value={8}
         className="digit-8-key"
-        handleClick={() => handleClick(8)}
+        handleClick={() => handleClick("8")}
       />
       <Key
         value={9}
         className="digit-9-key"
-        handleClick={() => handleClick(9)}
+        handleClick={() => handleClick("9")}
       />
       <BkspKey
         className="erase-key"
