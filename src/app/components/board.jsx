@@ -48,60 +48,16 @@ export const Grid9x9 = forwardRef(
       setCellValues(newCellValues);
     }
 
-    const setInputValue = (value) => {
+    function handleKeypadInput(value) {
       const row = focusedCell.row;
       const col = focusedCell.col;
 
-      if (cellProtection[row][col]) return;
-
-      const newCellValues = [...cellValues.map((row) => [...row])];
-      const newCellErrors = [...cellErrors.map((row) => [...row])];
-      const prevValue = newCellValues[row][col];
-
-      if (value >= "1" && value <= "9") {
-        let int = parseInt(value, 10);
-
-        // clear errors
-        newCellErrors[row][col] = 0;
-        clearAdjacentErrors(newCellValues, newCellErrors, row, col, prevValue);
-
-        // add errors
-        if (isFreeForm) {
-          newCellErrors[row][col] = addAdjacentErrors(
-            newCellValues,
-            newCellErrors,
-            row,
-            col,
-            int
-          );
-        } else if (cellSolution[row][col] !== int) {
-          // +1 for bad answer
-          newCellErrors[row][col] = 1;
-          newCellErrors[row][col] += addAdjacentErrors(
-            newCellValues,
-            newCellErrors,
-            row,
-            col,
-            int
-          );
-        }
-
-        newCellValues[row][col] = int;
-      } else if (value === "Delete" || value === "Backspace") {
-        // clear errors
-        newCellErrors[row][col] = 0;
-        clearAdjacentErrors(newCellValues, newCellErrors, row, col, prevValue);
-
-        newCellValues[row][col] = 0;
-      }
-
-      setCellErrors(newCellErrors);
-      setCellValues(newCellValues);
-    };
+      handleKeyDown(value, row, col);
+    }
 
     // Expose functions to ref
     useImperativeHandle(ref, () => ({
-      setInputValue,
+      handleKeypadInput,
       resetAll,
     }));
 
@@ -126,7 +82,7 @@ export const Grid9x9 = forwardRef(
             newCellErrors,
             row,
             col,
-            int 
+            int
           );
         } else if (cellSolution[row][col] !== int) {
           // +1 for bad answer

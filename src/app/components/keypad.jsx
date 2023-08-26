@@ -20,7 +20,7 @@ export function Keypad({ gridRef }) {
       alert("Sorry this functionality is coming soon");
     }
 
-    gridRef.current.setInputValue(value);
+    gridRef.current.handleKeypadInput(value);
   }
 
   return (
