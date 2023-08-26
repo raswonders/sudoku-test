@@ -103,15 +103,15 @@ export const Grid9x9 = forwardRef(
       resetAll,
     }));
 
-    function handleKeyDown(event, row, col) {
+    function handleKeyDown(value, row, col) {
       if (cellProtection[row][col]) return;
 
       const newCellValues = [...cellValues.map((row) => [...row])];
       const newCellErrors = [...cellErrors.map((row) => [...row])];
       const prevValue = newCellValues[row][col];
 
-      if (event.key >= "1" && event.key <= "9") {
-        let value = parseInt(event.key, 10);
+      if (value >= "1" && value <= "9") {
+        let int = parseInt(value, 10);
 
         // clear errors
         newCellErrors[row][col] = 0;
@@ -124,9 +124,9 @@ export const Grid9x9 = forwardRef(
             newCellErrors,
             row,
             col,
-            value
+            int 
           );
-        } else if (cellSolution[row][col] !== value) {
+        } else if (cellSolution[row][col] !== int) {
           // +1 for bad answer
           newCellErrors[row][col] = 1;
           newCellErrors[row][col] += addAdjacentErrors(
@@ -134,12 +134,12 @@ export const Grid9x9 = forwardRef(
             newCellErrors,
             row,
             col,
-            value
+            int
           );
         }
 
-        newCellValues[row][col] = value;
-      } else if (event.key === "Delete" || event.key === "Backspace") {
+        newCellValues[row][col] = int;
+      } else if (value === "Delete" || value === "Backspace") {
         // clear errors
         newCellErrors[row][col] = 0;
         clearAdjacentErrors(newCellValues, newCellErrors, row, col, prevValue);
