@@ -3,6 +3,7 @@
 import { Quicksand } from "next/font/google";
 import resetSvg from "../../../public/reset.svg";
 import backspaceSvg from "../../../public/backspace.svg";
+import hintSvg from "../../../public/hint.svg";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
@@ -16,8 +17,9 @@ export function Keypad({ gridRef }) {
       return;
     }
 
-    if (value === "Solve") {
+    if (value === "Hint") {
       alert("Sorry this functionality is coming soon");
+      return;
     }
 
     gridRef.current.handleKeypadInput(value);
@@ -27,10 +29,9 @@ export function Keypad({ gridRef }) {
     <div
       className={`keypad select-none justify-center mt-4 ${quicksand.className} font-semibold text-white text-2xl`}
     >
-      <Key
-        value="S"
-        className="solve-key hidden"
-        handleClick={() => handleClick("Solve")}
+      <HintKey
+        className="hint-key"
+        handleClick={() => handleClick("Hint")}
       />
       <ResetKey
         className="restart-key"
@@ -118,6 +119,17 @@ function BkspKey({ className, handleClick }) {
       onClick={handleClick}
     >
       <img src={backspaceSvg.src} alt="Erase" />
+    </button>
+  );
+}
+
+function HintKey({ className, handleClick }) {
+  return (
+    <button
+      className={`button ${className} rounded-lg focus:outline-none font-scaling-keypad flex justify-center items-center`}
+      onClick={handleClick}
+    >
+      <img src={hintSvg.src} alt="Hint" />
     </button>
   );
 }
