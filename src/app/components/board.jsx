@@ -7,8 +7,10 @@ import {
   getCellsInGrid,
   addAdjacentErrors,
   clearAdjacentErrors,
-  solve,
+  solveAllCells,
   hasError,
+  getCellsInError,
+  getRandomEmptyCell,
 } from "../utils";
 
 const quicksand = Quicksand({
@@ -63,7 +65,7 @@ export const Grid9x9 = forwardRef(
     useImperativeHandle(ref, () => ({
       handleKeypadInput,
       resetAll,
-      solveSudoku,
+      hintSudoku,
     }));
 
     function handleInput(value, row, col) {
@@ -114,16 +116,41 @@ export const Grid9x9 = forwardRef(
       setCellValues(newCellValues);
     }
 
-    function solveSudoku() {
+    function solveBoard() {
       if (hasError(cellErrors)) {
         alert("Please correct errors in sudoku first");
         return;
-      } 
+      }
 
       const newCellValues = [...cellValues.map((row) => [...row])];
-      solve(newCellValues);
-      console.log("finished solving")
+      solveAllCells(newCellValues);
       setCellValues(newCellValues);
+    }
+
+    function hintSudoku() {
+      if (isFreeForm) solveBoard();
+      else solveOneCell();
+    }
+
+    function solveOneCell() {
+      // 1st hint cell with most errors
+      const errorCells = getCellsInError(cellErrors);
+      if (errorCells.length > 0) {
+        for (let errorCell of errorCells) {
+          let [row, col] = errorCell;
+          if (cellValues[row][col] !== cellSolution[row][col]) {
+            handleInput(String(cellSolution[row][col]), row, col);
+            return;
+          }
+        }
+      }
+
+      // 2nd hint random empty cell
+      const emptyCell = getRandomEmptyCell(cellValues);
+      if (emptyCell) {
+        let [row, col] = emptyCell;
+        handleInput(String(cellSolution[row][col]), row, col);
+      }
     }
 
     return (

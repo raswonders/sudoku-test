@@ -168,7 +168,7 @@ export function stringToMatrix(str) {
   return matrix;
 }
 
-export function solve(board) {
+export function solveAllCells(board) {
   const emptyCell = getFirstEmptyCell(board);
 
   if (!emptyCell) {
@@ -181,7 +181,7 @@ export function solve(board) {
     if (isValidMove(board, row, col, value)) {
       board[row][col] = value;
 
-      if (solve(board)) {
+      if (solveAllCells(board)) {
         return true;
       }
 
@@ -213,7 +213,41 @@ export function hasError(errorBoard) {
     for (let col = 0; col < 9; col++) {
       if (errorBoard[row][col] > 0) return true;
     }
-  } 
+  }
 
   return false;
+}
+
+export function getCellsInError(errorBoard) {
+  const errors = [];
+
+  for (let row = 0; row < 9; row++) {
+    for (let col = 0; col < 9; col++) {
+      if (errorBoard[row][col] > 0) {
+        errors.push([row, col, errorBoard[row][col]]);
+      }
+    }
+  }
+
+  // cells with most errors at the beggining
+  errors.sort((a, b) => b[2] - a[2]);
+
+  return errors;
+}
+
+export function getRandomEmptyCell(board) {
+  const emptyCells = [];
+
+  for (let row = 0; row < 9; row++) {
+    for (let col = 0; col < 9; col++) {
+      if (board[row][col] === 0) {
+        emptyCells.push([row, col]);
+      }
+    }
+  }
+
+  if (emptyCells.length === 0) return null;
+
+  const randomIndex = Math.floor(Math.random() * emptyCells.length);
+  return emptyCells[randomIndex];
 }

@@ -18,7 +18,7 @@ export function Keypad({ gridRef }) {
     }
 
     if (value === "Hint") {
-      gridRef.current.solveSudoku();
+      gridRef.current.hintSudoku();
       return;
     }
 
