@@ -207,3 +207,13 @@ export function getFirstEmptyCell(board) {
 function isValidMove(board, row, col, value) {
   return getCellsInConflict(board, row, col, value).length === 0;
 }
+
+export function hasError(errorBoard) {
+  for (let row = 0; row < 9; row++) {
+    for (let col = 0; col < 9; col++) {
+      if (errorBoard[row][col] > 0) return true;
+    }
+  } 
+
+  return false;
+}

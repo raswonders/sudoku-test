@@ -8,6 +8,7 @@ import {
   addAdjacentErrors,
   clearAdjacentErrors,
   solve,
+  hasError,
 } from "../utils";
 
 const quicksand = Quicksand({
@@ -114,6 +115,11 @@ export const Grid9x9 = forwardRef(
     }
 
     function solveSudoku() {
+      if (hasError(cellErrors)) {
+        alert("Please correct errors in sudoku first");
+        return;
+      } 
+
       const newCellValues = [...cellValues.map((row) => [...row])];
       solve(newCellValues);
       console.log("finished solving")
