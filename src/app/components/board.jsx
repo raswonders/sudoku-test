@@ -7,6 +7,7 @@ import {
   getCellsInGrid,
   addAdjacentErrors,
   clearAdjacentErrors,
+  solve,
 } from "../utils";
 
 const quicksand = Quicksand({
@@ -61,6 +62,7 @@ export const Grid9x9 = forwardRef(
     useImperativeHandle(ref, () => ({
       handleKeypadInput,
       resetAll,
+      solveSudoku,
     }));
 
     function handleInput(value, row, col) {
@@ -108,6 +110,13 @@ export const Grid9x9 = forwardRef(
       }
 
       setCellErrors(newCellErrors);
+      setCellValues(newCellValues);
+    }
+
+    function solveSudoku() {
+      const newCellValues = [...cellValues.map((row) => [...row])];
+      solve(newCellValues);
+      console.log("finished solving")
       setCellValues(newCellValues);
     }
 

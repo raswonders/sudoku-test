@@ -168,25 +168,42 @@ export function stringToMatrix(str) {
   return matrix;
 }
 
-// NEED rework before it can work with current board
-//  function solve(cells) {
-//   const newCells = [...cells];
+export function solve(board) {
+  const emptyCell = getFirstEmptyCell(board);
 
-//   for (let i = 0; i < 81; i++) {
-//     if (newCells[i].value === "") {
-//       for (let guess = 1; guess < 10; guess++) {
-//         newCells[i] = { ...newCells[i], value: guess.toString() };
-//         if (!hasDuplicates(newCells, i)) {
-//           if (solve(newCells)) {
-//             return true;
-//           }
-//         } else {
-//           newCells[i] = { ...newCells[i], value: "" };
-//         }
-//       }
-//       return false;
-//     }
-//   }
-//   setCells(newCells);
-//   return true;
-// }
+  if (!emptyCell) {
+    return true;
+  }
+
+  const [row, col] = emptyCell;
+
+  for (let value = 1; value <= 9; value++) {
+    if (isValidMove(board, row, col, value)) {
+      board[row][col] = value;
+
+      if (solve(board)) {
+        return true;
+      }
+
+      board[row][col] = 0;
+    }
+  }
+
+  return false;
+}
+
+export function getFirstEmptyCell(board) {
+  for (let row = 0; row < 9; row++) {
+    for (let col = 0; col < 9; col++) {
+      if (board[row][col] === 0) {
+        return [row, col];
+      }
+    }
+  }
+
+  return null;
+}
+
+function isValidMove(board, row, col, value) {
+  return getCellsInConflict(board, row, col, value).length === 0;
+}
