@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Timer from "./timer";
 
 import burgerIconSvg from "../../../public/burger-menu.svg";
 
@@ -9,7 +10,7 @@ export function Menubar({ game, setGame }) {
   }
 
   return (
-    <header className="flex w-full">
+    <header className="flex justify-between items-center w-full">
       <div className="dropdown">
         <label
           tabIndex={0}
@@ -56,6 +57,8 @@ export function Menubar({ game, setGame }) {
           </li>
         </ul>
       </div>
+      {game && <Timer />}
+      <div>Lifes</div>
     </header>
   );
 }

@@ -36,7 +36,6 @@ export default function Home() {
 
   useEffect(() => {
     async function setupBoard() {
-      console.log("running use effect")
       if (!game) {
         initFreeFormBoard();
         return;
