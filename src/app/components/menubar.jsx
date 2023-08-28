@@ -1,72 +1,39 @@
 import React, { useState } from "react";
 
-function Menubar({ game, setGame }) {
-  const [activeTab, setActiveTab] = useState("Play");
-  const isPlay = activeTab === "Play";
-  const isGame = Boolean(game);
+import burgerIconSvg from "../../../public/burger-menu.svg";
 
-  function handleTabClick(tabName) {
-    setActiveTab(tabName);
-  }
-
-  function handleDifficultyClick(difficulty) {
-    if (isGame) {
-      setGame("");
-      window.confirm("Game is already in progress, do you want to continue?");
-    }
-    setGame(difficulty);
-  }
-
+export function Menubar() {
   return (
-    <>
-      <h1 className="text-white font-semibold text-lg">Choose your difficulty and start playing</h1>
-      {/* <div className="tabs">
-        <a
-          className={`tab tab-bordered tab-md ${
-            activeTab === "Play" ? "tab-active" : ""
-          }`}
-          onClick={() => handleTabClick("Play")}
+    <header className="flex w-full">
+      <div className="dropdown">
+        <label
+          tabIndex={0}
+          className="btn px-1 border-0 bg-transparent hover:bg-transparent"
         >
-          Play 
-        </a>
-        <a
-          className={`tab tab-bordered tab-md ${
-            activeTab === "Solution" ? "tab-active" : ""
-          }`}
-          onClick={() => handleTabClick("Solution")}
+          <img src={burgerIconSvg.src} alt="Menu" />
+        </label>
+        <ul
+          tabIndex={0}
+          className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-44"
         >
-          Find Solution
-        </a>
-      </div> */}
-      {isPlay && (
-        <DifficultyButtons handleDifficultyClick={handleDifficultyClick} />
-      )}
-    </>
-  );
-}
-
-function DifficultyButtons({ handleDifficultyClick }) {
-  return (
-    <div className="flex justify-center space-x-4 my-4">
-      <button
-        onClick={() => handleDifficultyClick("easy")}
-        className="btn bg-opacity-25 hover:bg-opacity-100 hover:bg-blue-300 bg-blue-500 border-white text-white border-0 btn-primary"
-      >
-        Easy
-      </button>
-      <button
-        onClick={() => handleDifficultyClick("medium")}
-        className="btn bg-opacity-50 hover:bg-opacity-100 hover:bg-blue-300 bg-blue-500 border-white text-white border-0 btn-primary"
-      >
-        Medium
-      </button>
-      <button
-        onClick={() => handleDifficultyClick("hard")}
-        className="btn bg-opacity-75 hover:bg-opacity-100 hover:bg-blue-300 bg-blue-500 border-white text-white border-0 btn-primary"
-      >
-        Hard
-      </button>
-    </div>
+          <li>
+            <a className="hover:bg-blue-200 active:!bg-blue-500 active:!text-white focus:bg-blue-300 font-semibold">
+              New game
+            </a>
+          </li>
+          <li>
+            <a className="hover:bg-blue-200 active:!bg-blue-500 active:!text-white focus:bg-blue-300">
+              Blank board
+            </a>
+          </li>
+          <li>
+            <a className="hover:bg-blue-200 active:!bg-blue-500 active:!text-white focus:bg-blue-300">
+              Leaderboard
+            </a>
+          </li>
+        </ul>
+      </div>
+    </header>
   );
 }
 
