@@ -1,9 +1,9 @@
-import React, { useState } from "react";
 import Timer from "./timer";
+import AssistsTracker from "./assists-tracker";
 
 import burgerIconSvg from "../../../public/burger-menu.svg";
 
-export function Menubar({ game, setGame }) {
+export function Menubar({ game, setGame, assists }) {
   function handleClick() {
     const elem = document.activeElement;
     elem?.blur();
@@ -58,7 +58,7 @@ export function Menubar({ game, setGame }) {
         </ul>
       </div>
       {game && <Timer />}
-      <div>Lifes</div>
+      {game && <AssistsTracker assists={assists} />}
     </header>
   );
 }

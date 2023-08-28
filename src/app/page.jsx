@@ -24,6 +24,7 @@ export default function Home() {
     Array.from({ length: 9 }, () => Array(9).fill(0))
   );
   const [game, setGame] = useState("");
+  const [assists, setAssists] = useState(0);
 
   const gridRef = useRef(null);
 
@@ -32,6 +33,7 @@ export default function Home() {
     setCellErrors(Array.from({ length: 9 }, () => Array(9).fill(0)));
     setCellSolution(Array.from({ length: 9 }, () => Array(9).fill(0)));
     setCellProtection(Array.from({ length: 9 }, () => Array(9).fill(0)));
+    setAssists(0);
   }
 
   useEffect(() => {
@@ -63,7 +65,7 @@ export default function Home() {
   return (
     <main className="px-4 py-6 w-full h-full flex justify-center">
       <div className="w-full h-full max-w-screen-lg flex flex-col justify-between items-center">
-        <Menubar game={game} setGame={setGame} />
+        <Menubar game={game} setGame={setGame} assists={assists} />
         <div className="flex-grow flex flex-col justify-center">
           <Grid9x9
             cellValues={cellValues}
