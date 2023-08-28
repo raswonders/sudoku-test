@@ -5,6 +5,7 @@ import { Grid9x9 } from "./components/board";
 import { Keypad } from "./components/keypad";
 import { test1 } from "../../data/board-mocks";
 import Menubar from "./components/menubar";
+import Timer from "./components/timer";
 import { getSudoku, createCellProtection } from "./utils";
 
 export default function Home() {
@@ -67,6 +68,7 @@ export default function Home() {
       <div className="w-full h-full max-w-screen-lg flex flex-col justify-between items-center">
         <Menubar game={game} setGame={setGame} assists={assists} />
         <div className="flex-grow flex flex-col justify-center">
+          {game && <Timer />}
           <Grid9x9
             cellValues={cellValues}
             setCellValues={setCellValues}

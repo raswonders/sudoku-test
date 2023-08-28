@@ -31,10 +31,12 @@ function Timer() {
     .replace(/:/g, "\u00A0:\u00A0"); // use non-breaking space colon
 
   return (
-    <div
-      className={`${quicksand.className} text-xl text-white w-[5ch] text-justify`}
-    >
-      {formattedTime}
+    <div className="flex justify-center items-center mb-2">
+      <div
+        className={`${quicksand.className} text-xl text-white w-[5ch] text-justify`}
+      >
+        {formattedTime}
+      </div>
     </div>
   );
 }
