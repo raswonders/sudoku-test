@@ -27,9 +27,21 @@ export default function Home() {
 
   const gridRef = useRef(null);
 
+  function initFreeFormBoard() {
+    setCellValues(Array.from({ length: 9 }, () => Array(9).fill(0)));
+    setCellErrors(Array.from({ length: 9 }, () => Array(9).fill(0)));
+    setCellSolution(Array.from({ length: 9 }, () => Array(9).fill(0)));
+    setCellProtection(Array.from({ length: 9 }, () => Array(9).fill(0)));
+  }
+
   useEffect(() => {
-    async function fetchData() {
-      if (!game) return;
+    async function setupBoard() {
+      console.log("running use effect")
+      if (!game) {
+        initFreeFormBoard();
+        return;
+      }
+
       const boards = await getSudoku(game);
 
       // initialize new game
@@ -40,7 +52,7 @@ export default function Home() {
       setCellErrors(Array.from({ length: 9 }, () => Array(9).fill(0)));
     }
 
-    fetchData();
+    setupBoard();
   }, [game]);
 
   // for testing purposes only

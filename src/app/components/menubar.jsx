@@ -2,7 +2,12 @@ import React, { useState } from "react";
 
 import burgerIconSvg from "../../../public/burger-menu.svg";
 
-export function Menubar() {
+export function Menubar({ game, setGame }) {
+  function handleClick() {
+    const elem = document.activeElement;
+    elem?.blur();
+  }
+
   return (
     <header className="flex w-full">
       <div className="dropdown">
@@ -17,17 +22,35 @@ export function Menubar() {
           className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-44"
         >
           <li>
-            <a className="hover:bg-blue-200 active:!bg-blue-500 active:!text-white focus:bg-blue-300 font-semibold">
+            <a
+              className="hover:bg-blue-200 active:!bg-blue-500 active:!text-white focus:bg-blue-300 font-semibold"
+              onClick={() => {
+                setGame("");
+                setTimeout(() => {
+                  setGame("easy");
+                }, 0);
+                handleClick();
+              }}
+            >
               New game
             </a>
           </li>
           <li>
-            <a className="hover:bg-blue-200 active:!bg-blue-500 active:!text-white focus:bg-blue-300">
+            <a
+              className="hover:bg-blue-200 active:!bg-blue-500 active:!text-white focus:bg-blue-300"
+              onClick={() => {
+                setGame("");
+                handleClick();
+              }}
+            >
               Blank board
             </a>
           </li>
           <li>
-            <a className="hover:bg-blue-200 active:!bg-blue-500 active:!text-white focus:bg-blue-300">
+            <a
+              className="hover:bg-blue-200 active:!bg-blue-500 active:!text-white focus:bg-blue-300"
+              onClick={() => alert("This feature is coming soon")}
+            >
               Leaderboard
             </a>
           </li>
