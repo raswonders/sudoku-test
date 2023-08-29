@@ -55,7 +55,7 @@ export const Grid9x9 = forwardRef(
     }
 
     function handleKeypadInput(value) {
-      if (!focusedCell.row) return;
+      if (focusedCell.row === null) return;
 
       const row = focusedCell.row;
       const col = focusedCell.col;
