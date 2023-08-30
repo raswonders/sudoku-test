@@ -1,7 +1,7 @@
 import AssistsTracker from "./assists-tracker";
 import burgerIconSvg from "../../../public/burger-menu.svg";
 
-export function Menubar({ game, setGame, assists }) {
+export function Menubar({ game, setGame, setDifficulty, assists }) {
   function handleClick() {
     const elem = document.activeElement;
     elem?.blur();
@@ -25,9 +25,10 @@ export function Menubar({ game, setGame, assists }) {
               <a
                 className="hover:bg-blue-200 active:!bg-blue-500 active:!text-white focus:bg-blue-300 font-semibold"
                 onClick={() => {
-                  setGame("");
+                  setGame("off");
                   setTimeout(() => {
-                    setGame("easy");
+                    setGame("on");
+                    setDifficulty("easy")
                   }, 0);
                   handleClick();
                 }}
@@ -39,7 +40,7 @@ export function Menubar({ game, setGame, assists }) {
               <a
                 className="hover:bg-blue-200 active:!bg-blue-500 active:!text-white focus:bg-blue-300"
                 onClick={() => {
-                  setGame("");
+                  setGame("off")
                   handleClick();
                 }}
               >
@@ -56,7 +57,7 @@ export function Menubar({ game, setGame, assists }) {
             </li>
           </ul>
         </div>
-        {game && <AssistsTracker assists={assists} />}
+        {game === "on" && <AssistsTracker assists={assists} />}
       </div>
     </header>
   );

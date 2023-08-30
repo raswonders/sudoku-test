@@ -6,7 +6,13 @@ import { Keypad } from "./components/keypad";
 import { test1 } from "../../data/board-mocks";
 import Menubar from "./components/menubar";
 import Timer from "./components/timer";
-import { getSudoku, createCellProtection } from "./utils";
+import {
+  getSudoku,
+  createCellProtection,
+  getRandomEmptyCell,
+  areArraysEqual,
+} from "./utils";
+import GameOverModal from "./components/game-over";
 
 export default function Home() {
   const [cellValues, setCellValues] = useState(
@@ -24,8 +30,10 @@ export default function Home() {
   const [cellErrors, setCellErrors] = useState(
     Array.from({ length: 9 }, () => Array(9).fill(0))
   );
-  const [game, setGame] = useState("");
+  const [game, setGame] = useState("off");
+  const [difficulty, setDifficulty] = useState("lost");
   const [assists, setAssists] = useState(0);
+  const [time, setTime] = useState(0);
 
   const gridRef = useRef(null);
 
@@ -39,12 +47,17 @@ export default function Home() {
 
   useEffect(() => {
     async function setupBoard() {
-      if (!game) {
+      if (game === "off") {
         initFreeFormBoard();
         return;
       }
 
-      const boards = await getSudoku(game);
+      if (game === "won" || game === "lost") {
+        window.my_modal_2.showModal();
+        return;
+      }
+
+      const boards = await getSudoku(difficulty);
 
       // initialize new game
       setCellValuesGiven([...boards.cells.map((row) => [...row])]);
@@ -57,6 +70,14 @@ export default function Home() {
     setupBoard();
   }, [game]);
 
+  useEffect(() => {
+    const isFinished =
+      !getRandomEmptyCell(cellSolution) &&
+      areArraysEqual(cellValues, cellSolution);
+
+    isFinished && setGame("won");
+  }, [cellValues]);
+
   // for testing purposes only
   // const [cellValues, setCellValues] = useState(test1.cellValues);
   // const [cellSolution, setCellSolution] = useState(test1.cellSolution);
@@ -66,9 +87,15 @@ export default function Home() {
   return (
     <main className="px-4 py-6 w-full h-full flex justify-center">
       <div className="w-full h-full max-w-screen-lg flex flex-col justify-between items-center">
-        <Menubar game={game} setGame={setGame} assists={assists} />
+        <Menubar
+          game={game}
+          setGame={setGame}
+          assists={assists}
+          setDifficulty={setDifficulty}
+        />
         <div className="flex-grow flex flex-col justify-center">
-          {game && <Timer />}
+          <GameOverModal game={game} setGame={setGame} time={time} gridRef={gridRef} />
+          {game === "on" && <Timer time={time} setTime={setTime} />}
           <Grid9x9
             cellValues={cellValues}
             setCellValues={setCellValues}

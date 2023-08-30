@@ -6,9 +6,7 @@ const quicksand = Quicksand({
   weights: [400, 600],
 });
 
-function Timer() {
-  const [time, setTime] = useState(0);
-
+function Timer({time, setTime}) {
   useEffect(() => {
     let interval;
 

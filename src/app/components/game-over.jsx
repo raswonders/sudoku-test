@@ -5,12 +5,20 @@ const firaSans = Fira_Sans({
   weight: ["400", "700"],
 });
 
-function GameOverModal({ game, time, won }) {
+function GameOverModal({ game, setGame, difficulty, time }) {
+  const won = game === "won";
+
+  const formattedTime = new Date(time * 1000)
+    .toISOString()
+    .slice(14, 19)
+    .replace(/:/g, "\u00A0:\u00A0"); // use non-breaking space colon
+
+  function handleClick() {
+    setGame("off");
+  }
+
   return (
     <>
-      <button className="btn" onClick={() => window.my_modal_2.showModal()}>
-        open modal
-      </button>
       <dialog id="my_modal_2" className="modal">
         <form
           method="dialog"
@@ -23,35 +31,44 @@ function GameOverModal({ game, time, won }) {
             {won ? "You Won!" : "Game Over"}
           </h3>
 
-          <p className="mt-8">board {game}</p>
+          <p className="mt-8">board {difficulty}</p>
           <p className="mt-1">
-            {won ? "solved" : "lost"} in {time}
+            {won ? "solved" : "lost"} in {formattedTime}
           </p>
 
           <div className="modal-action justify-center mt-8">
             {won ? (
               <>
-                <button className="btn bg-white text-blue-500 hover:border-blue-100 hover:bg-blue-100">
+                <button
+                  className="btn bg-white text-blue-500 hover:border-blue-100 hover:bg-blue-100"
+                  onClick={() => setGame("on")}
+                >
                   New game
                 </button>
-                <button className="btn btn-outline !ml-6 text-white border-white hover:border-blue-100 hover:bg-blue-100 hover:text-blue-500">
+                <button
+                  className="btn btn-outline !ml-6 text-white border-white hover:border-blue-100 hover:bg-blue-100 hover:text-blue-500"
+                  onClick={() => setGame("off")}
+                >
                   Leaderboard
                 </button>
               </>
             ) : (
               <>
-                <button className="btn btn-outline text-white border-white hover:border-blue-100 hover:bg-blue-100 hover:text-blue-500">
+                <button
+                  className="btn btn-outline text-white border-white hover:border-blue-100 hover:bg-blue-100 hover:text-blue-500"
+                  onClick={() => setGame("on")}
+                >
                   New game
                 </button>
-                <button className="btn bg-white !ml-6 text-blue-500 hover:border-blue-100 hover:bg-blue-100">
+                <button
+                  className="btn bg-white !ml-6 text-blue-500 hover:border-blue-100 hover:bg-blue-100"
+                  onClick={() => gridRef.current.resetAll()}
+                >
                   Try again
                 </button>
               </>
             )}
           </div>
-        </form>
-        <form method="dialog" className="modal-backdrop">
-          <button>close</button>
         </form>
       </dialog>
     </>
