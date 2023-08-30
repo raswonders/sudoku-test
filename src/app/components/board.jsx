@@ -37,12 +37,6 @@ export const Grid9x9 = forwardRef(
     const isFreeForm = cellSolution[0][0] === 0;
 
     function resetAll() {
-      const userConfirmed = window.confirm(
-        "Are you sure you want to reset all values?"
-      );
-
-      if (!userConfirmed) return;
-
       let newCellValues;
       if (isFreeForm) {
         newCellValues = Array.from({ length: 9 }, () => Array(9).fill(0));
@@ -52,6 +46,14 @@ export const Grid9x9 = forwardRef(
       const newCellErrors = Array.from({ length: 9 }, () => Array(9).fill(0));
       setCellErrors(newCellErrors);
       setCellValues(newCellValues);
+    }
+
+    function resetAllOnConfirm() {
+      const userConfirmed = window.confirm(
+        "Are you sure you want to reset all values?"
+      );
+
+      if (userConfirmed) resetAll();
     }
 
     function handleKeypadInput(value) {
@@ -67,6 +69,7 @@ export const Grid9x9 = forwardRef(
     useImperativeHandle(ref, () => ({
       handleKeypadInput,
       resetAll,
+      resetAllOnConfirm,
       hintSudoku,
     }));
 

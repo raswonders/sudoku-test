@@ -13,7 +13,7 @@ const quicksand = Quicksand({
 export function Keypad({ gridRef }) {
   function handleClick(value) {
     if (value === "Reset") {
-      gridRef.current.resetAll();
+      gridRef.current.resetAllOnConfirm();
       return;
     }
 

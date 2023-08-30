@@ -31,7 +31,7 @@ export default function Home() {
     Array.from({ length: 9 }, () => Array(9).fill(0))
   );
   const [game, setGame] = useState("off");
-  const [difficulty, setDifficulty] = useState("lost");
+  const [difficulty, setDifficulty] = useState("easy");
   const [assists, setAssists] = useState(0);
   const [time, setTime] = useState(0);
 
@@ -65,18 +65,30 @@ export default function Home() {
       setCellSolution([...boards.solution.map((row) => [...row])]);
       setCellProtection(createCellProtection(boards.cells));
       setCellErrors(Array.from({ length: 9 }, () => Array(9).fill(0)));
+      setAssists(0);
+      setTime(0);
     }
 
     setupBoard();
   }, [game]);
 
   useEffect(() => {
+    if (game !== "on") return;
+
     const isFinished =
-      !getRandomEmptyCell(cellSolution) &&
+      !getRandomEmptyCell(cellValues) &&
       areArraysEqual(cellValues, cellSolution);
 
-    isFinished && setGame("won");
+    if (isFinished) {
+      setGame("won");
+    }
   }, [cellValues]);
+
+  useEffect(() => {
+    if (game !== "on") return;
+
+    assists >= 3 && setGame("lost");
+  }, [assists]);
 
   // for testing purposes only
   // const [cellValues, setCellValues] = useState(test1.cellValues);
@@ -94,7 +106,14 @@ export default function Home() {
           setDifficulty={setDifficulty}
         />
         <div className="flex-grow flex flex-col justify-center">
-          <GameOverModal game={game} setGame={setGame} time={time} gridRef={gridRef} />
+          {(game === "won" || game === "lost") && (
+            <GameOverModal
+              game={game}
+              setGame={setGame}
+              time={time}
+              gridRef={gridRef}
+            />
+          )}
           {game === "on" && <Timer time={time} setTime={setTime} />}
           <Grid9x9
             cellValues={cellValues}

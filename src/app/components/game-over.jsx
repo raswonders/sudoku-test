@@ -5,17 +5,13 @@ const firaSans = Fira_Sans({
   weight: ["400", "700"],
 });
 
-function GameOverModal({ game, setGame, difficulty, time }) {
+function GameOverModal({ game, setGame, difficulty, time, gridRef }) {
   const won = game === "won";
 
   const formattedTime = new Date(time * 1000)
     .toISOString()
     .slice(14, 19)
     .replace(/:/g, "\u00A0:\u00A0"); // use non-breaking space colon
-
-  function handleClick() {
-    setGame("off");
-  }
 
   return (
     <>
