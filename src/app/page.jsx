@@ -13,6 +13,7 @@ import {
   areArraysEqual,
 } from "./utils";
 import GameOverModal from "./components/game-over";
+import DifficultyModal, { TestModal} from "./components/difficulty-modal";
 
 export default function Home() {
   const [cellValues, setCellValues] = useState(
@@ -53,7 +54,12 @@ export default function Home() {
       }
 
       if (game === "won" || game === "lost") {
-        window.my_modal_2.showModal();
+        window.game_over_modal.showModal();
+        return;
+      }
+
+      if (game === "difficulty") {
+        window.diff_modal.showModal();
         return;
       }
 
@@ -114,6 +120,7 @@ export default function Home() {
               gridRef={gridRef}
             />
           )}
+          <DifficultyModal setGame={setGame} setDifficulty={setDifficulty} />
           {game === "on" && <Timer time={time} setTime={setTime} />}
           <Grid9x9
             cellValues={cellValues}
