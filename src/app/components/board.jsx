@@ -30,6 +30,7 @@ export const Grid9x9 = forwardRef(
       setCellErrors,
       cellSolution,
       cellValuesGiven,
+      setAssists,
     },
     ref
   ) => {
@@ -83,29 +84,27 @@ export const Grid9x9 = forwardRef(
       if (value >= "1" && value <= "9") {
         let int = parseInt(value, 10);
 
-        // clear errors
+        // clear prev errors
         newCellErrors[row][col] = 0;
         clearAdjacentErrors(newCellValues, newCellErrors, row, col, prevValue);
 
-        // add errors
+        // add new errors
+        const errorsCreated = addAdjacentErrors(
+          newCellValues,
+          newCellErrors,
+          row,
+          col,
+          int
+        );
+
+        if (errorsCreated >= 0) setAssists((prev) => prev + 1);
+
         if (isFreeForm || !nonSolutionIsMistake) {
-          newCellErrors[row][col] = addAdjacentErrors(
-            newCellValues,
-            newCellErrors,
-            row,
-            col,
-            int
-          );
+          newCellErrors[row][col] = errorsCreated;
         } else if (cellSolution[row][col] !== int) {
           // +1 for bad answer
           newCellErrors[row][col] = 1;
-          newCellErrors[row][col] += addAdjacentErrors(
-            newCellValues,
-            newCellErrors,
-            row,
-            col,
-            int
-          );
+          newCellErrors[row][col] += errorsCreated;
         }
 
         newCellValues[row][col] = int;
