@@ -13,7 +13,7 @@ import {
   areArraysEqual,
 } from "./utils";
 import GameOverModal from "./components/game-over";
-import DifficultyModal, { TestModal} from "./components/difficulty-modal";
+import DifficultyModal, { TestModal } from "./components/difficulty-modal";
 
 export default function Home() {
   const [cellValues, setCellValues] = useState(
@@ -46,36 +46,51 @@ export default function Home() {
     setAssists(0);
   }
 
+  function createGameBoard(boards) {
+    setCellValuesGiven([...boards.cells.map((row) => [...row])]);
+    setCellValues([...boards.cells.map((row) => [...row])]);
+    setCellSolution([...boards.solution.map((row) => [...row])]);
+    setCellProtection(createCellProtection(boards.cells));
+    setCellErrors(Array.from({ length: 9 }, () => Array(9).fill(0)));
+    setAssists(0);
+    setTime(0);
+  }
+
+  function resetGameBoard() {
+    setCellValues([...cellValuesGiven.map((row) => [...row])]);
+    setCellErrors(Array.from({ length: 9 }, () => Array(9).fill(0)));
+    setAssists(0);
+    setTime(0);
+  }
+
   useEffect(() => {
-    async function setupBoard() {
-      if (game === "off") {
-        initFreeFormBoard();
-        return;
+    async function updateUI() {
+      switch (game) {
+        case "off":
+          initFreeFormBoard();
+          break;
+        case "difficulty":
+          window.diff_modal.showModal();
+          break;
+        case "fetch":
+          const boards = await getSudoku(difficulty);
+          createGameBoard(boards);
+          setGame("on");
+          break;
+        case "reset":
+          resetGameBoard();
+          setGame("on");
+          break;
+        case "on":
+          break;
+        case "won":
+        case "lost":
+          window.game_over_modal.showModal();
+          break;
       }
-
-      if (game === "won" || game === "lost") {
-        window.game_over_modal.showModal();
-        return;
-      }
-
-      if (game === "difficulty") {
-        window.diff_modal.showModal();
-        return;
-      }
-
-      const boards = await getSudoku(difficulty);
-
-      // initialize new game
-      setCellValuesGiven([...boards.cells.map((row) => [...row])]);
-      setCellValues([...boards.cells.map((row) => [...row])]);
-      setCellSolution([...boards.solution.map((row) => [...row])]);
-      setCellProtection(createCellProtection(boards.cells));
-      setCellErrors(Array.from({ length: 9 }, () => Array(9).fill(0)));
-      setAssists(0);
-      setTime(0);
     }
 
-    setupBoard();
+    updateUI();
   }, [game]);
 
   useEffect(() => {

@@ -8,7 +8,7 @@ const firaSans = Fira_Sans({
 function DifficultyModal({ setGame, setDifficulty }) {
   function handleClick(difficulty) {
     setDifficulty(difficulty);
-    setGame("on");
+    setGame("fetch");
   }
 
   return (
