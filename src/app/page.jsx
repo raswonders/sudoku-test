@@ -14,6 +14,7 @@ import {
 } from "./utils";
 import GameOverModal from "./components/game-over";
 import DifficultyModal from "./components/difficulty-modal";
+import LoadingSpinner from "./components/loading-spinner";
 
 export default function Home() {
   const [cellValues, setCellValues] = useState(
@@ -73,6 +74,7 @@ export default function Home() {
           window.diff_modal.showModal();
           break;
         case "fetch":
+          window.loading_spinner.showModal();
           const boards = await getSudoku(difficulty);
           createGameBoard(boards);
           setGame("on");
@@ -82,6 +84,7 @@ export default function Home() {
           setGame("on");
           break;
         case "on":
+          window.loading_spinner.close();
           break;
         case "won":
         case "lost":
@@ -110,7 +113,7 @@ export default function Home() {
 
     assists >= 3 && setGame("lost");
   }, [assists]);
-
+  
   // for testing purposes only
   // const [cellValues, setCellValues] = useState(test1.cellValues);
   // const [cellSolution, setCellSolution] = useState(test1.cellSolution);
@@ -136,6 +139,7 @@ export default function Home() {
             />
           )}
           <DifficultyModal setGame={setGame} setDifficulty={setDifficulty} />
+          <LoadingSpinner />
           {game === "on" && <Timer time={time} setTime={setTime} />}
           <Grid9x9
             cellValues={cellValues}
