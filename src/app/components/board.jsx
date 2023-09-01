@@ -141,6 +141,8 @@ export const Grid9x9 = forwardRef(
     }
 
     function solveOneCell() {
+      setAssists((prev) => prev + 1);
+
       // 1st hint cell with most errors
       const errorCells = getCellsInError(cellErrors);
       if (errorCells.length > 0) {
@@ -159,8 +161,6 @@ export const Grid9x9 = forwardRef(
         let [row, col] = emptyCell;
         handleInput(String(cellSolution[row][col]), row, col);
       }
-
-      setAssists((prev) => prev + 1);
     }
 
     return (
