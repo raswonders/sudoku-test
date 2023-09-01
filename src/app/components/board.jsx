@@ -84,6 +84,8 @@ export const Grid9x9 = forwardRef(
       if (value >= "1" && value <= "9") {
         let int = parseInt(value, 10);
 
+        if (int === prevValue) return; 
+
         // clear prev errors
         newCellErrors[row][col] = 0;
         clearAdjacentErrors(newCellValues, newCellErrors, row, col, prevValue);
