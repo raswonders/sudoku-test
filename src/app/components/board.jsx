@@ -97,7 +97,7 @@ export const Grid9x9 = forwardRef(
           int
         );
 
-        if (errorsCreated >= 0) setAssists((prev) => prev + 1);
+        if (errorsCreated > 0) setAssists((prev) => prev + 1);
 
         if (isFreeForm || !nonSolutionIsMistake) {
           newCellErrors[row][col] = errorsCreated;
@@ -132,8 +132,12 @@ export const Grid9x9 = forwardRef(
     }
 
     function hintSudoku() {
-      if (isFreeForm) solveBoard();
-      else solveOneCell();
+      if (isFreeForm) {
+        solveBoard();
+        return;
+      }
+
+      solveOneCell();
     }
 
     function solveOneCell() {
@@ -155,6 +159,8 @@ export const Grid9x9 = forwardRef(
         let [row, col] = emptyCell;
         handleInput(String(cellSolution[row][col]), row, col);
       }
+
+      setAssists((prev) => prev + 1);
     }
 
     return (

@@ -131,6 +131,7 @@ export default function Home() {
             setCellErrors={setCellErrors}
             cellValuesGiven={cellValuesGiven}
             setAssists={setAssists}
+            assists={assists}
             ref={gridRef}
           />
           <Keypad gridRef={gridRef} />
