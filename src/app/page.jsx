@@ -13,7 +13,7 @@ import {
   areArraysEqual,
 } from "./utils";
 import GameOverModal from "./components/game-over";
-import DifficultyModal, { TestModal } from "./components/difficulty-modal";
+import DifficultyModal from "./components/difficulty-modal";
 
 export default function Home() {
   const [cellValues, setCellValues] = useState(

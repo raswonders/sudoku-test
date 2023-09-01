@@ -44,13 +44,4 @@ function DifficultyModal({ setGame, setDifficulty }) {
   );
 }
 
-export function TestModal({ setGame, setDifficulty }) {
-  function handleClick(difficulty) {
-    setDifficulty(difficulty);
-    setGame("on");
-  }
-
-  return <h1>test modal</h1>;
-}
-
 export default DifficultyModal;
