@@ -13,6 +13,11 @@ function GameOverModal({ game, setGame, difficulty, time, gridRef }) {
     .slice(14, 19)
     .replace(/:/g, "\u00A0:\u00A0"); // use non-breaking space colon
 
+  function handleReset() {
+    gridRef.current.resetAll();
+    setGame("reset");
+  }
+
   return (
     <dialog id="game_over_modal" className="modal">
       <form
@@ -57,7 +62,7 @@ function GameOverModal({ game, setGame, difficulty, time, gridRef }) {
               </button>
               <button
                 className="btn bg-white !ml-6 text-blue-500 hover:border-blue-100 hover:bg-blue-100"
-                onClick={() => gridRef.current.resetAll()}
+                onClick={handleReset}
               >
                 Try again
               </button>
