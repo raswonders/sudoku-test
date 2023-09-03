@@ -16,11 +16,7 @@ export function Keypad({ gridRef, game, setGame }) {
       if (game === "off") {
         window.clear_confirm.showModal();
       } else {
-        const userConfirmed = window.confirm(
-          "Do you really want to re-generate the board?"
-        );
-
-        if (userConfirmed) setGame("fetch");
+        window.restart_confirm.showModal();
       }
 
       return;
