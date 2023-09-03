@@ -10,10 +10,23 @@ const quicksand = Quicksand({
   weights: [400, 600],
 });
 
-export function Keypad({ gridRef }) {
+export function Keypad({ gridRef, game, setGame }) {
   function handleClick(value) {
     if (value === "Reset") {
-      gridRef.current.resetAllOnConfirm();
+      if (game === "off") {
+        const userConfirmed = window.confirm(
+          "Do you really want to reset all the values?"
+        );
+
+        if (userConfirmed) gridRef.current.resetAll();
+      } else {
+        const userConfirmed = window.confirm(
+          "Do you really want to re-generate the board?"
+        );
+
+        if (userConfirmed) setGame("fetch");
+      }
+
       return;
     }
 
@@ -29,10 +42,7 @@ export function Keypad({ gridRef }) {
     <div
       className={`keypad select-none justify-center mt-4 ${quicksand.className} font-semibold text-white text-2xl`}
     >
-      <HintKey
-        className="hint-key"
-        handleClick={() => handleClick("Hint")}
-      />
+      <HintKey className="hint-key" handleClick={() => handleClick("Hint")} />
       <ResetKey
         className="restart-key"
         handleClick={() => handleClick("Reset")}

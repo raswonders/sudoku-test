@@ -154,7 +154,7 @@ export default function Home() {
             assists={assists}
             ref={gridRef}
           />
-          <Keypad gridRef={gridRef} />
+          <Keypad gridRef={gridRef} game={game} setGame={setGame} />
         </div>
       </div>
     </main>

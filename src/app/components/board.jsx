@@ -50,14 +50,6 @@ export const Grid9x9 = forwardRef(
       setCellValues(newCellValues);
     }
 
-    function resetAllOnConfirm() {
-      const userConfirmed = window.confirm(
-        "Are you sure you want to reset all values?"
-      );
-
-      if (userConfirmed) resetAll();
-    }
-
     function handleKeypadInput(value) {
       if (focusedCell.row === null) return;
 
@@ -71,7 +63,6 @@ export const Grid9x9 = forwardRef(
     useImperativeHandle(ref, () => ({
       handleKeypadInput,
       resetAll,
-      resetAllOnConfirm,
       hintSudoku,
     }));
 
