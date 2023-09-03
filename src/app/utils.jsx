@@ -135,17 +135,8 @@ export function clearAdjacentErrors(board, errorBoard, row, col, value) {
 }
 
 export async function getSudoku(difficulty) {
-  const url = "https://sudoq.p.rapidapi.com/generate/" + difficulty;
-  const options = {
-    method: "GET",
-    headers: {
-      "X-RapidAPI-Key": "5177364e08msh7c9bed52416220fp1b47afjsn9e1086d773a8",
-      "X-RapidAPI-Host": "sudoq.p.rapidapi.com",
-    },
-  };
-
   try {
-    const response = await fetch(url, options);
+    const response = await fetch(`/api/generate/${difficulty}`);
     const data = await response.json();
     return {
       cells: stringToMatrix(data.results.puzzle),
