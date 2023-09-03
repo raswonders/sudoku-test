@@ -113,7 +113,7 @@ export default function Home() {
 
     assists >= 3 && setGame("lost");
   }, [assists]);
-  
+
   // for testing purposes only
   // const [cellValues, setCellValues] = useState(test1.cellValues);
   // const [cellSolution, setCellSolution] = useState(test1.cellSolution);
@@ -142,6 +142,7 @@ export default function Home() {
           <LoadingSpinner />
           {game === "on" && <Timer time={time} setTime={setTime} />}
           <Grid9x9
+            game={game}
             cellValues={cellValues}
             setCellValues={setCellValues}
             cellProtection={cellProtection}

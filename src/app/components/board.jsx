@@ -23,6 +23,7 @@ const nonSolutionIsMistake = false;
 export const Grid9x9 = forwardRef(
   (
     {
+      game,
       cellValues,
       setCellValues,
       cellProtection,
@@ -35,7 +36,7 @@ export const Grid9x9 = forwardRef(
     ref
   ) => {
     const [focusedCell, setFocusedCell] = useState({ row: null, col: null });
-    const isFreeForm = cellSolution[0][0] === 0;
+    const isFreeForm = game === "off";
 
     function resetAll() {
       let newCellValues;
@@ -84,7 +85,7 @@ export const Grid9x9 = forwardRef(
       if (value >= "1" && value <= "9") {
         let int = parseInt(value, 10);
 
-        if (int === prevValue) return; 
+        if (int === prevValue) return;
 
         // clear prev errors
         newCellErrors[row][col] = 0;
