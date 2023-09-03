@@ -1,6 +1,6 @@
 export function ClearBoardConfirmation({ gridRef }) {
   return (
-    <dialog id="clear_confirm" className="modal modal-bottom sm:modal-middle">
+    <dialog id="clear_confirm" className="modal">
       <form
         method="dialog"
         className="modal-box bg-blue-500 text-white max-w-sm"
@@ -31,7 +31,7 @@ export function ClearBoardConfirmation({ gridRef }) {
 
 export function RestartGameConfirmation({ setGame }) {
   return (
-    <dialog id="restart_confirm" className="modal modal-bottom sm:modal-middle">
+    <dialog id="restart_confirm" className="modal">
       <form
         method="dialog"
         className="modal-box bg-blue-500 text-white max-w-sm"
