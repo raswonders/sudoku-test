@@ -14,11 +14,7 @@ export function Keypad({ gridRef, game, setGame }) {
   function handleClick(value) {
     if (value === "Reset") {
       if (game === "off") {
-        const userConfirmed = window.confirm(
-          "Do you really want to reset all the values?"
-        );
-
-        if (userConfirmed) gridRef.current.resetAll();
+        window.clear_confirm.showModal();
       } else {
         const userConfirmed = window.confirm(
           "Do you really want to re-generate the board?"

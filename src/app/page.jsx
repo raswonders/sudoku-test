@@ -15,6 +15,7 @@ import {
 import GameOverModal from "./components/game-over";
 import DifficultyModal from "./components/difficulty-modal";
 import LoadingSpinner from "./components/loading-spinner";
+import { ClearBoardConfirmation } from "./components/modals";
 
 export default function Home() {
   const [cellValues, setCellValues] = useState(
@@ -138,6 +139,7 @@ export default function Home() {
               gridRef={gridRef}
             />
           )}
+          <ClearBoardConfirmation gridRef={gridRef} />
           <DifficultyModal setGame={setGame} setDifficulty={setDifficulty} />
           <LoadingSpinner />
           {game === "on" && <Timer time={time} setTime={setTime} />}
