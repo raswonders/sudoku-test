@@ -9,7 +9,7 @@ export function ClearBoardConfirmation({ gridRef }) {
 
         <p className="py-4">
           Are you sure you want to clear all values on the Sudoku board? This
-          action will erase all your progress, and you won't be able to undo it.
+          action will erase all your progress, and you won&apos;t be able to undo it.
           Proceed?
         </p>
 
@@ -41,7 +41,7 @@ export function RestartGameConfirmation({ setGame }) {
         <p className="py-4">
           Are you sure you want to restart the Sudoku game? This action will
           restart the game with a new board of same difficulty, and your
-          progress will be lost. All cells will be cleared, and you won't be
+          progress will be lost. All cells will be cleared, and you won&apos;t be
           able to undo this. Proceed with the restart?
         </p>
 
