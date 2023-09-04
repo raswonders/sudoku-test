@@ -136,27 +136,46 @@ export function clearAdjacentErrors(board, errorBoard, row, col, value) {
 
 export async function getSudoku(difficulty) {
   try {
+    difficulty = difficulty === "medium" ? "intermediate" : difficulty;
+    difficulty = difficulty === "hard" ? "expert" : difficulty;
+
     const response = await fetch(`/api/generate/${difficulty}`);
     const data = await response.json();
     return {
-      cells: stringToMatrix(data.results.puzzle),
-      solution: stringToMatrix(data.results.solution),
+      cells: stringToSudokuArray(data.puzzle),
+      solution: stringToSudokuArray(data.solution),
     };
   } catch (error) {
     console.error(error);
   }
 }
 
-export function stringToMatrix(str) {
-  const values = str.split(",").map(Number); // Split and convert to numbers
-  const matrix = [];
-
-  for (let i = 0; i < 9; i++) {
-    const row = values.slice(i * 9, (i + 1) * 9);
-    matrix.push(row);
+function stringToSudokuArray(inputString) {
+  if (inputString.length !== 81) {
+    throw new Error(
+      "Invalid Sudoku received: Sudoku string must have a length of 81 characters."
+    );
   }
 
-  return matrix;
+  const sudokuArray = [];
+
+  let rowIndex = 0;
+  let colIndex = 0;
+  for (let i = 0; i < inputString.length; i++) {
+    const char = inputString.charAt(i);
+
+    sudokuArray[rowIndex] = sudokuArray[rowIndex] || [];
+    sudokuArray[rowIndex][colIndex] = parseInt(char);
+
+    colIndex++;
+
+    if (colIndex === 9) {
+      rowIndex++;
+      colIndex = 0;
+    }
+  }
+
+  return sudokuArray;
 }
 
 export function solveAllCells(board) {
