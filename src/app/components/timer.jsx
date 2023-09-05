@@ -6,13 +6,13 @@ const quicksand = Quicksand({
   weights: [400, 600],
 });
 
-function Timer({time, setTime, game}) {
+function Timer({ time, setTime, game }) {
   useEffect(() => {
     let interval;
 
     const startTimer = () => {
       interval = setInterval(() => {
-        setTime((prevTime) => prevTime + 1);
+        if (game === "on") setTime((prevTime) => prevTime + 1);
       }, 1000);
     };
 
@@ -21,7 +21,7 @@ function Timer({time, setTime, game}) {
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [game]);
 
   const formattedTime = new Date(time * 1000)
     .toISOString()
@@ -29,7 +29,11 @@ function Timer({time, setTime, game}) {
     .replace(/:/g, "\u00A0:\u00A0"); // use non-breaking space colon
 
   return (
-    <div className={`flex justify-center items-center mb-2 ${game === "on" ? "" : "opacity-0"}`}>
+    <div
+      className={`flex justify-center items-center mb-2 ${
+        game === "on" ? "" : "opacity-0"
+      }`}
+    >
       <div
         className={`${quicksand.className} text-xl text-white w-[5ch] text-justify`}
       >
