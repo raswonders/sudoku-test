@@ -44,7 +44,7 @@ function GameOverModal({ game, setGame, difficulty, time, gridRef }) {
           {won ? "You Won!" : "Game Over"}
         </h3>
 
-        <p className="mt-8">board {difficulty}</p>
+        <p className="mt-8">{difficulty}</p>
         <p className="mt-1">
           {won ? "solved" : "lost"} in {formattedTime}
         </p>

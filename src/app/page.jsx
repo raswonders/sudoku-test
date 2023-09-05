@@ -140,6 +140,7 @@ export default function Home() {
               setGame={setGame}
               time={time}
               gridRef={gridRef}
+              difficulty={difficulty}
             />
           )}
           <ClearBoardConfirmation gridRef={gridRef} />
