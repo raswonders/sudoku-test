@@ -1,4 +1,5 @@
 import { Fira_Sans } from "next/font/google";
+import { useEffect } from "react";
 
 const firaSans = Fira_Sans({
   subsets: ["latin"],
@@ -17,6 +18,18 @@ function GameOverModal({ game, setGame, difficulty, time, gridRef }) {
     gridRef.current.resetAll();
     setGame("reset");
   }
+
+  const handleEscKey = () => {
+    setGame("off");
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleEscKey);
+
+    return () => {
+      window.removeEventListener("keydown", handleEscKey);
+    };
+  }, []);
 
   return (
     <dialog id="game_over_modal" className="modal">
@@ -49,7 +62,7 @@ function GameOverModal({ game, setGame, difficulty, time, gridRef }) {
                 className="btn btn-outline !ml-6 text-white border-white hover:border-blue-100 hover:bg-blue-100 hover:text-blue-500"
                 onClick={() => setGame("off")}
               >
-                Leaderboard
+                Back
               </button>
             </>
           ) : (

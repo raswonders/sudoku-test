@@ -46,14 +46,6 @@ export function Menubar({ game, setGame, assists }) {
                 Blank board
               </a>
             </li>
-            <li>
-              <a
-                className="hover:bg-blue-200 active:!bg-blue-500 active:!text-white focus:bg-blue-300"
-                onClick={() => alert("This feature is coming soon")}
-              >
-                Leaderboard
-              </a>
-            </li>
           </ul>
         </div>
         {game === "on" && <AssistsTracker assists={assists} />}
