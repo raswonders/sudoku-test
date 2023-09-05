@@ -1,5 +1,6 @@
 import { Fira_Sans } from "next/font/google";
 import { useEffect } from "react";
+import { getFormattedTime } from "../utils";
 
 const firaSans = Fira_Sans({
   subsets: ["latin"],
@@ -9,10 +10,7 @@ const firaSans = Fira_Sans({
 function GameOverModal({ game, setGame, difficulty, time, gridRef }) {
   const won = game === "won";
 
-  const formattedTime = new Date(time * 1000)
-    .toISOString()
-    .slice(14, 19)
-    .replace(/:/g, "\u00A0:\u00A0"); // use non-breaking space colon
+  const formattedTime = getFormattedTime(time);
 
   function handleReset() {
     gridRef.current.resetAll();

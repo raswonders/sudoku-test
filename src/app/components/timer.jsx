@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Quicksand } from "next/font/google";
+import { getFormattedTimeMonospace } from "../utils";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
@@ -23,10 +24,7 @@ function Timer({ time, setTime, game }) {
     };
   }, [game]);
 
-  const formattedTime = new Date(time * 1000)
-    .toISOString()
-    .slice(14, 19)
-    .replace(/:/g, "\u00A0:\u00A0"); // use non-breaking space colon
+  const formattedTime = getFormattedTimeMonospace(time);
 
   return (
     <div

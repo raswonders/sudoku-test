@@ -281,3 +281,12 @@ export function areArraysEqual(arr1, arr2) {
 
   return true;
 }
+
+export function getFormattedTime(time) {
+  return new Date(time * 1000).toISOString().slice(14, 19);
+}
+
+export function getFormattedTimeMonospace(time) {
+  // use non-breaking space colon
+  return getFormattedTime(time).replace(/:/g, "\u00A0:\u00A0");
+}
