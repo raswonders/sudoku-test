@@ -12,12 +12,12 @@ import {
   getRandomEmptyCell,
   areArraysEqual,
 } from "./utils";
-import GameOverModal from "./components/game-over";
 import DifficultyModal from "./components/difficulty-modal";
 import LoadingSpinner from "./components/loading-spinner";
 import {
   ClearBoardConfirmation,
   RestartGameConfirmation,
+  GameOverModal,
 } from "./components/modals";
 
 export default function Home() {
