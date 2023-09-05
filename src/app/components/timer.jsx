@@ -6,7 +6,7 @@ const quicksand = Quicksand({
   weights: [400, 600],
 });
 
-function Timer({time, setTime}) {
+function Timer({time, setTime, game}) {
   useEffect(() => {
     let interval;
 
@@ -29,7 +29,7 @@ function Timer({time, setTime}) {
     .replace(/:/g, "\u00A0:\u00A0"); // use non-breaking space colon
 
   return (
-    <div className="flex justify-center items-center mb-2">
+    <div className={`flex justify-center items-center mb-2 ${game === "on" ? "" : "opacity-0"}`}>
       <div
         className={`${quicksand.className} text-xl text-white w-[5ch] text-justify`}
       >

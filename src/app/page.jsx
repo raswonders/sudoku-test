@@ -146,7 +146,7 @@ export default function Home() {
           <RestartGameConfirmation setGame={setGame} />
           <DifficultyModal setGame={setGame} setDifficulty={setDifficulty} />
           <LoadingSpinner />
-          {game === "on" && <Timer time={time} setTime={setTime} />}
+          <Timer time={time} setTime={setTime} game={game} />
           <Grid9x9
             game={game}
             cellValues={cellValues}
