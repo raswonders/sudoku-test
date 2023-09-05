@@ -116,7 +116,7 @@ export const Grid9x9 = forwardRef(
 
     function solveBoard() {
       if (hasError(cellErrors)) {
-        alert("Please correct errors in sudoku first");
+        window.board_in_error.showModal();
         return;
       }
 

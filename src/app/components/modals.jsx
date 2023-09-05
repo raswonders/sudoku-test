@@ -70,6 +70,32 @@ export function RestartGameConfirmation({ setGame }) {
   );
 }
 
+export function BoardInErrorModal({ gridRef }) {
+  return (
+    <dialog id="board_in_error" className="modal">
+      <form
+        method="dialog"
+        className="modal-box bg-blue-500 text-white max-w-sm"
+      >
+        <h3 className={`mt-2 text-2xl font-semibold`}>
+          Correct errors in board
+        </h3>
+
+        <p className="py-4">
+          Board can be solved only if it does not contain errors. Please fix any
+          errors before continuing.
+        </p>
+
+        <div className="modal-action justify-start">
+          <button className="btn bg-white px-10 text-blue-500 hover:border-blue-100 hover:bg-blue-100">
+            Ok
+          </button>
+        </div>
+      </form>
+    </dialog>
+  );
+}
+
 export function GameOverModal({ game, setGame, difficulty, time, gridRef }) {
   const won = game === "won";
 

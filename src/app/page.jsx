@@ -18,6 +18,7 @@ import {
   GameOverModal,
   DifficultyModal,
   LoadingSpinner,
+  BoardInErrorModal,
 } from "./components/modals";
 
 export default function Home() {
@@ -147,6 +148,7 @@ export default function Home() {
           <RestartGameConfirmation setGame={setGame} />
           <DifficultyModal setGame={setGame} setDifficulty={setDifficulty} />
           <LoadingSpinner />
+          <BoardInErrorModal />
           <Timer time={time} setTime={setTime} game={game} />
           <Grid9x9
             game={game}
