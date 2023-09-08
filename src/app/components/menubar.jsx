@@ -48,7 +48,9 @@ export function Menubar({ game, setGame, assists }) {
             </li>
           </ul>
         </div>
-        {game === "on" && <AssistsTracker assists={assists} />}
+        {(game === "on" || game === "lost") && (
+          <AssistsTracker assists={assists} />
+        )}
       </div>
     </header>
   );
