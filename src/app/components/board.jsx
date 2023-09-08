@@ -66,7 +66,7 @@ export const Grid9x9 = forwardRef(
       hintSudoku,
     }));
 
-    function handleInput(value, row, col) {
+    function handleInput(value, row, col, assistUsed = false) {
       if (cellProtection[row][col]) return;
 
       const newCellValues = [...cellValues.map((row) => [...row])];
@@ -91,7 +91,7 @@ export const Grid9x9 = forwardRef(
           int
         );
 
-        if (errorsCreated > 0) setAssists((prev) => prev + 1);
+        if (errorsCreated > 0 && !assistUsed) setAssists((prev) => prev + 1);
 
         if (isFreeForm || !nonSolutionIsMistake) {
           newCellErrors[row][col] = errorsCreated;
@@ -143,7 +143,7 @@ export const Grid9x9 = forwardRef(
         for (let errorCell of errorCells) {
           let [row, col] = errorCell;
           if (cellValues[row][col] !== cellSolution[row][col]) {
-            handleInput(String(cellSolution[row][col]), row, col);
+            handleInput(String(cellSolution[row][col]), row, col, true);
             return;
           }
         }
